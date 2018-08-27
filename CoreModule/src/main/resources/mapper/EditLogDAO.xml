@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lianglianglee.edit.dao.EditLogDAO">
-    <resultMap id="BaseResultMap" type="com.lianglianglee.edit.entity.EditLogEntity">
+<mapper namespace="com.doubi.edit.dao.EditLogDAO">
+    <resultMap id="BaseResultMap" type="com.doubi.edit.entity.EditLogEntity">
         <id column="Id" jdbcType="BIGINT" property="id"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime"/>
@@ -22,14 +22,14 @@
     update  e_edit_log  set status=0
     where Id = #{id,jdbcType=BIGINT}
   </update>
-    <insert id="insert" parameterType="com.lianglianglee.edit.entity.EditLogEntity" useGeneratedKeys="true"
+    <insert id="insert" parameterType="com.doubi.edit.entity.EditLogEntity" useGeneratedKeys="true"
             keyColumn="id">
     insert into e_edit_log ( create_time, last_update_time,
       content, type, status)
     values (#{createTime,jdbcType=TIMESTAMP}, #{lastUpdateTime,jdbcType=TIMESTAMP},
       #{content,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}   )
   </insert>
-    <update id="updateById" parameterType="com.lianglianglee.edit.entity.EditLogEntity">
+    <update id="updateById" parameterType="com.doubi.edit.entity.EditLogEntity">
     update e_edit_log
     set   last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
       content = #{content,jdbcType=VARCHAR},
