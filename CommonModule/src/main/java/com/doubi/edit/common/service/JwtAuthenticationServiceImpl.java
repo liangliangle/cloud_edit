@@ -55,7 +55,7 @@ public class JwtAuthenticationServiceImpl {
   }
 
   private String prepareToken(EditJwtModel model, int timeOfminutes)
-      throws JoseException, JsonProcessingException {
+    throws JoseException, JsonProcessingException {
 
     logger.info("##GENETATE TOKEN## with userName " + model.getUserName());
 
@@ -84,24 +84,21 @@ public class JwtAuthenticationServiceImpl {
     return jwt;
   }
 
-  public EditJwtModel getAuthenticatedUser(String    jwt) {
+  public EditJwtModel getAuthenticatedUser(String jwt) {
     EditJwtModel model = getMassJwtModel(jwt);
     return model;
   }
 
 
-
-  private EditJwtModel getMassJwtModel(String    jwt) {
+  private EditJwtModel getMassJwtModel(String jwt) {
     EditJwtModel model = null;
     JwtConsumer jwtConsumer = new JwtConsumerBuilder().setRequireExpirationTime()
-        .setAllowedClockSkewInSeconds(30).setExpectedIssuer(EXPECTED_ISSUER)
-        .setExpectedAudience(AUDIENCER).setVerificationKey(rsaJsonWebKey.getKey()).build();
+      .setAllowedClockSkewInSeconds(30).setExpectedIssuer(EXPECTED_ISSUER)
+      .setExpectedAudience(AUDIENCER).setVerificationKey(rsaJsonWebKey.getKey()).build();
     try {
       JwtClaims jwtClaims = jwtConsumer.processToClaims(jwt);
       String s = (String) jwtClaims.getClaimValue("User");
-
       model = objectMapper.readValue(s, EditJwtModel.class);
-
     } catch (InvalidJwtException e) {
       logger.error(e.getMessage());
     } catch (JsonParseException e) {

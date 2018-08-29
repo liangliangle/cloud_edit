@@ -8,7 +8,7 @@ import java.io.Serializable;
  * e_edit_info
  * @author 
  */
-public class EditInfoEntity  extends BaseEntity implements Serializable {
+public class EditInfoEntity  extends BaseEntity {
 
     private Long editId;
 
@@ -21,7 +21,6 @@ public class EditInfoEntity  extends BaseEntity implements Serializable {
      */
     private String info;
 
-    private static final long serialVersionUID = 1L;
 
 
     public Long getEditId() {

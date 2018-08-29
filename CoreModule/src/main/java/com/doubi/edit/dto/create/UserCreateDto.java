@@ -1,16 +1,9 @@
-package com.doubi.edit.dto.result.base;
+package com.doubi.edit.dto.create;
 
 import com.doubi.edit.common.dto.BaseDto;
 import io.swagger.annotations.ApiModelProperty;
 
-import java.io.Serializable;
-
-/**
- * u_user
- *
- * @author liangliang
- */
-public class UserDto extends BaseDto implements Serializable {
+public class UserCreateDto extends BaseDto {
 
   /**
    * 用户名
@@ -21,20 +14,12 @@ public class UserDto extends BaseDto implements Serializable {
   /**
    * 邮箱
    */
+  @ApiModelProperty("密码")
+  private String password;
   @ApiModelProperty("邮箱")
   private String email;
   @ApiModelProperty("手机号")
   private String phone;
-
-  @ApiModelProperty("是否二次验证")
-  private boolean auth;
-
-  /**
-   * 状态
-   */
-  @ApiModelProperty("状态，1：正常，2异常")
-  private Integer status;
-
 
   public String getName() {
     return name;
@@ -60,20 +45,13 @@ public class UserDto extends BaseDto implements Serializable {
     this.phone = phone;
   }
 
-  public Integer getStatus() {
-    return status;
+  public String getPassword() {
+    return password;
   }
 
-  public void setStatus(Integer status) {
-    this.status = status;
+  public void setPassword(String password) {
+    this.password = password;
   }
 
 
-  public boolean isAuth() {
-    return auth;
-  }
-
-  public void setAuth(boolean auth) {
-    this.auth = auth;
-  }
 }

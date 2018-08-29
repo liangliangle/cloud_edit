@@ -6,7 +6,6 @@ package com.doubi.edit.common.exception;
  */
 public class ForbiddenException extends BaseException {
 
-  private static final long serialVersionUID = 1L;
 
   public ForbiddenException() {
   }

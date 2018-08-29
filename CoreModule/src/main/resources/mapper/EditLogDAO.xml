@@ -23,7 +23,7 @@
     where Id = #{id,jdbcType=BIGINT}
   </update>
     <insert id="insert" parameterType="com.doubi.edit.entity.EditLogEntity" useGeneratedKeys="true"
-            keyColumn="id">
+            keyProperty="id">
     insert into e_edit_log ( create_time, last_update_time,
       content, type, status)
     values (#{createTime,jdbcType=TIMESTAMP}, #{lastUpdateTime,jdbcType=TIMESTAMP},

@@ -31,7 +31,6 @@ public class GroupUserDto extends BaseDto implements Serializable {
    */
   private Integer status;
 
-  private static final long serialVersionUID = 1L;
 
   public Long getUserId() {
     return userId;

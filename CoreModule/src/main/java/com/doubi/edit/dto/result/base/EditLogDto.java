@@ -8,7 +8,7 @@ import java.io.Serializable;
  * edit-log
  * @author 
  */
-public class EditLogDto extends BaseDto implements Serializable {
+public class EditLogDto extends BaseDto {
 
 
     /**
@@ -23,7 +23,6 @@ public class EditLogDto extends BaseDto implements Serializable {
 
     private Integer status;
 
-    private static final long serialVersionUID = 1L;
 
 
     public String getContent() {

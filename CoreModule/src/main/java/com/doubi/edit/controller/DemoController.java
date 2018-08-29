@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@EnableAutoConfiguration
 @RequestMapping("/api/demo")
 @Api(value = "无效接口", consumes = "application/json")
 public class DemoController extends BaseController {

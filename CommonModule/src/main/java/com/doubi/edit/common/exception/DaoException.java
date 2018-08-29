@@ -6,7 +6,6 @@ package com.doubi.edit.common.exception;
  * @author 李亮亮
  */
 public class DaoException extends BaseException {
-  private static final long serialVersionUID = 1L;
 
   public DaoException() {
   }

@@ -1,10 +1,12 @@
 package com.doubi.edit.dao;
 
 import com.doubi.edit.entity.GroupUserEntity;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * GroupUserDAO继承基类
  */
+@Mapper
 public interface GroupUserDAO {
 
   GroupUserEntity selectById(Long id);

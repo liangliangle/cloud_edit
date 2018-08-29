@@ -7,14 +7,18 @@ import com.doubi.edit.common.service.JwtAuthenticationServiceImpl;
 import com.doubi.edit.common.utils.BeanUtils;
 import com.doubi.edit.common.utils.GoogleAuthenticator;
 import com.doubi.edit.dao.UserDAO;
+import com.doubi.edit.dto.create.GroupCreateDto;
+import com.doubi.edit.dto.create.UserCreateDto;
 import com.doubi.edit.dto.result.base.LoginDto;
 import com.doubi.edit.dto.result.base.UserDto;
 import com.doubi.edit.dto.update.UserPasswordDto;
+import com.doubi.edit.service.GroupService;
 import com.doubi.edit.utils.Qrcode;
 import com.doubi.edit.entity.UserEntity;
 import com.doubi.edit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sun.misc.BASE64Encoder;
 
 import java.io.UnsupportedEncodingException;
@@ -29,6 +33,8 @@ import java.security.NoSuchAlgorithmException;
 public class UserServiceImpl implements UserService {
   @Autowired
   private UserDAO userDAO;
+  @Autowired
+  private GroupService groupService;
   @Autowired
   private JwtAuthenticationServiceImpl jwtAuthenticationService;
 
@@ -49,8 +55,7 @@ public class UserServiceImpl implements UserService {
     }
     dto.setUserDto(userDto);
     dto.setTocken(getTocken(userDto));
-
-    //TODO 用户所在小组
+    dto.setGroups(groupService.getByUser(user.getId()));
     return dto;
   }
 
@@ -89,12 +94,13 @@ public class UserServiceImpl implements UserService {
     }
     entity.buildDefaultLastTime();
     userDAO.updateById(entity);
-    String url=GoogleAuthenticator.getUrl(entity.getSecret(),entity.getName());
+    String url = GoogleAuthenticator.getUrl(entity.getSecret(), entity.getName());
     return Qrcode.getCodeString(entity.getSecret());
   }
 
   @Override
-  public void insert(UserDto dto) {
+  @Transactional(rollbackFor = ServiceException.class)
+  public void insert(UserCreateDto dto) {
     if (userDAO.countByPhoneOrEmail(dto.getEmail(), dto.getPhone()) > 0) {
       throw new ServiceException("手机号或邮箱已占用!");
     }
@@ -103,6 +109,11 @@ public class UserServiceImpl implements UserService {
     entity.setPassword(md5(dto.getPassword()));
     entity.buildDefaultTimeStamp();
     userDAO.insert(entity);
+    GroupCreateDto groupCreateDto = new GroupCreateDto();
+    groupCreateDto.setName("默认笔记");
+    groupCreateDto.setType("个人");
+    groupCreateDto.setUserId(entity.getId());
+    groupService.insert(groupCreateDto);
   }
 
 

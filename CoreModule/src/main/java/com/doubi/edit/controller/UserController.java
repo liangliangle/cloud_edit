@@ -1,6 +1,7 @@
 package com.doubi.edit.controller;
 
 import com.doubi.edit.common.exception.ServiceException;
+import com.doubi.edit.dto.create.UserCreateDto;
 import com.doubi.edit.dto.result.base.LoginDto;
 import com.doubi.edit.dto.result.base.UserDto;
 import com.doubi.edit.dto.update.UserPasswordDto;
@@ -12,7 +13,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@EnableAutoConfiguration
 @RequestMapping("/api/user")
 @Api(value = "用户接口", consumes = "application/json")
 public class UserController {
@@ -22,7 +22,7 @@ public class UserController {
 
   @PostMapping("")
   @ApiOperation("注册用户")
-  public void addUser(@RequestBody UserDto dto) {
+  public void addUser(@RequestBody UserCreateDto dto) {
     userService.insert(dto);
   }
 
@@ -59,7 +59,6 @@ public class UserController {
   public void checkCode(@PathVariable("id") Long userId, @RequestParam String code) {
     userService.checkCode(userId, code);
   }
-
 
 
 }

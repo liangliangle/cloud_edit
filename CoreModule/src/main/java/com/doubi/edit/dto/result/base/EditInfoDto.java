@@ -21,7 +21,6 @@ public class EditInfoDto extends BaseDto implements Serializable {
      */
     private String info;
 
-    private static final long serialVersionUID = 1L;
 
 
     public Long getEditId() {

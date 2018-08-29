@@ -4,7 +4,6 @@ package com.doubi.edit.common.exception;
  * @author 李亮亮
  */
 public class ValidationException extends BaseException {
-  private static final long serialVersionUID = 1L;
 
   public ValidationException() {
   }

@@ -25,7 +25,6 @@ public class FileEntity extends BaseEntity implements Serializable {
 
     private String status;
 
-    private static final long serialVersionUID = 1L;
 
     public Long getEditId() {
         return editId;

@@ -6,7 +6,6 @@ package com.doubi.edit.common.exception;
  */
 public class AuthorizationException extends BaseException {
 
-  private static final long serialVersionUID = 1L;
 
   public AuthorizationException() {
   }

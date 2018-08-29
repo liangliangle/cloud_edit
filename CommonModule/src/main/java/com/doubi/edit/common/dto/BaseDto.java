@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
-public class BaseDto implements Serializable {
+public class BaseDto {
   @ApiModelProperty("主键 id")
   private Long id;
 
@@ -16,5 +16,4 @@ public class BaseDto implements Serializable {
   public void setId(Long id) {
     this.id = id;
   }
-
 }

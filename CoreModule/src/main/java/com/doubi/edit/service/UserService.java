@@ -1,5 +1,6 @@
 package com.doubi.edit.service;
 
+import com.doubi.edit.dto.create.UserCreateDto;
 import com.doubi.edit.dto.result.base.LoginDto;
 import com.doubi.edit.dto.result.base.UserDto;
 import com.doubi.edit.dto.update.UserPasswordDto;
@@ -22,7 +23,7 @@ public interface UserService {
   String getCodeImg(Long userId);
 
 
-  void insert(UserDto dto);
+  void insert(UserCreateDto dto);
 
   void checkCode(Long userId, String code);
 }

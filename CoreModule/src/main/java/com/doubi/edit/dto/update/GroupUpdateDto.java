@@ -25,4 +25,5 @@ public class GroupUpdateDto extends BaseDto {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+
 }

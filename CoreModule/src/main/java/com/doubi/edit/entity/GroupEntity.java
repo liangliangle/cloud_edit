@@ -21,7 +21,6 @@ public class GroupEntity extends BaseEntity implements Serializable {
 
     private Integer status;
 
-    private static final long serialVersionUID = 1L;
 
     public String getName() {
         return name;
