@@ -1,6 +1,7 @@
 package com.doubi.edit.dto.result;
 
 import com.doubi.edit.dto.result.base.GroupDto;
+import com.doubi.edit.dto.result.base.GroupUserDto;
 import com.doubi.edit.dto.result.base.UserDto;
 
 import java.util.List;
@@ -9,7 +10,7 @@ public class GroupDetailDto {
 
   private GroupDto dto;
 
-  private List<UserDto> users;
+  private List<GroupUserDto> users;
 
   public GroupDto getDto() {
     return dto;
@@ -19,11 +20,11 @@ public class GroupDetailDto {
     this.dto = dto;
   }
 
-  public List<UserDto> getUsers() {
+  public List<GroupUserDto> getUsers() {
     return users;
   }
 
-  public void setUsers(List<UserDto> users) {
+  public void setUsers(List<GroupUserDto> users) {
     this.users = users;
   }
 }

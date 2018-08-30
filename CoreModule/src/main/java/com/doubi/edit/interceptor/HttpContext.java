@@ -7,7 +7,7 @@ package com.doubi.edit.interceptor;
  */
 public class HttpContext {
   private String token;
-  private String userId;
+  private Long userId;
   private String userName;
   private String deviceType;
 
@@ -38,14 +38,11 @@ public class HttpContext {
     this.token = token;
   }
 
-  /**
-   * 当前使用者登录id.
-   */
-  public String getUserId() {
+  public Long getUserId() {
     return userId;
   }
 
-  public void setUserId(String userId) {
+  public void setUserId(Long userId) {
     this.userId = userId;
   }
 

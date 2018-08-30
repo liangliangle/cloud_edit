@@ -34,21 +34,19 @@ public class GroupController extends BaseController {
   @GetMapping("{id}")
   @ApiOperation("获取小组详情")
   public GroupDetailDto getById(@PathVariable("id") Long id) {
-    logger.info(request.getRequestURI());
     return groupService.getById(id);
   }
 
   @GetMapping("/user/{userId}")
   @ApiOperation("获取用户所在小组")
   public List<GroupDto> getByUser(@PathVariable("userId") Long userId) {
-    logger.info(request.getRequestURI());
     return groupService.getByUser(userId);
   }
 
   @PutMapping("rename/{id}")
   @ApiOperation("修改小组信息")
   public void update(@RequestBody GroupUpdateDto dto, @PathVariable("id") Long id) {
-    logger.info(request.getRequestURI());
+
     groupService.update(dto, id);
 
   }
@@ -56,7 +54,6 @@ public class GroupController extends BaseController {
   @PutMapping("convey{id}")
   @ApiOperation("转让小组")
   public void conveyGroup() {
-    logger.info(request.getRequestURI());
 //todo
   }
 

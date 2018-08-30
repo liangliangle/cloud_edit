@@ -14,12 +14,12 @@ public class BeanUtils {
 
   private static Logger logger = Logger.getLogger(BeanUtils.class);
 
-  public static <T> T DtoToEntity(BaseDto dto, Class<T> t) {
+  public static <T> T dtoToEntity(BaseDto dto, Class<T> t) {
     return beanToBean(dto, t);
 
   }
 
-  public static <T> T EntityToDto(BaseEntity entity, Class<T> t) {
+  public static <T> T entityToDto(BaseEntity entity, Class<T> t) {
     return beanToBean(entity, t);
   }
 

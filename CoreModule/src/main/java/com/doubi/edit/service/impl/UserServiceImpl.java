@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
     }
     user.setPassword(null);
 
-    UserDto userDto = BeanUtils.EntityToDto(user, UserDto.class);
+    UserDto userDto = BeanUtils.entityToDto(user, UserDto.class);
     if (null == user.getSecret()) {
       userDto.setAuth(false);
     } else {
@@ -104,7 +104,7 @@ public class UserServiceImpl implements UserService {
     if (userDAO.countByPhoneOrEmail(dto.getEmail(), dto.getPhone()) > 0) {
       throw new ServiceException("手机号或邮箱已占用!");
     }
-    UserEntity entity = BeanUtils.DtoToEntity(dto, UserEntity.class);
+    UserEntity entity = BeanUtils.dtoToEntity(dto, UserEntity.class);
     entity.setStatus(1);
     entity.setPassword(md5(dto.getPassword()));
     entity.buildDefaultTimeStamp();
@@ -113,6 +113,7 @@ public class UserServiceImpl implements UserService {
     groupCreateDto.setName("默认笔记");
     groupCreateDto.setType("个人");
     groupCreateDto.setUserId(entity.getId());
+    groupCreateDto.setUserName(entity.getName());
     groupService.insert(groupCreateDto);
   }
 

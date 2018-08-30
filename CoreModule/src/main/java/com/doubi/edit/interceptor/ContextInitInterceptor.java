@@ -39,7 +39,7 @@ public class ContextInitInterceptor implements HandlerInterceptor {
       return true;
     }
     if (!"get".equals(request.getMethod().toLowerCase()) && requestUri.contentEquals
-            ("/api/user/login")) {
+      ("/api/user/login")) {
       return true;
     }
     if ("post".equals(request.getMethod().toLowerCase()) && requestUri.equals("/api/user")) {
@@ -50,7 +50,7 @@ public class ContextInitInterceptor implements HandlerInterceptor {
       EditJwtModel model = jwtAuthenticationService.customizedValidation(token);
       HttpContext.getContext().setDeviceType(model.getDeviceType());
       HttpContext.getContext().setToken(token);
-      HttpContext.getContext().setUserId(model.getUserName());
+      HttpContext.getContext().setUserId(model.getId());
       HttpContext.getContext().setUserName(model.getUserName());
       return true;
     } catch (Exception e) {
@@ -64,7 +64,7 @@ public class ContextInitInterceptor implements HandlerInterceptor {
   @Override
   public void postHandle(HttpServletRequest httpServletRequest,
                          HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView)
-          throws Exception {
+    throws Exception {
 
   }
 }

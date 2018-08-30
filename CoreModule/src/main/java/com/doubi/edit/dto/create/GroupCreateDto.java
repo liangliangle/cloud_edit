@@ -16,6 +16,8 @@ public class GroupCreateDto extends BaseDto {
   private String type;
   @ApiModelProperty("创建人")
   private Long userId;
+  @ApiModelProperty("用户名")
+  private String userName;
 
 
   public String getName() {
@@ -40,5 +42,13 @@ public class GroupCreateDto extends BaseDto {
 
   public void setUserId(Long userId) {
     this.userId = userId;
+  }
+
+  public String getUserName() {
+    return userName;
+  }
+
+  public void setUserName(String userName) {
+    this.userName = userName;
   }
 }

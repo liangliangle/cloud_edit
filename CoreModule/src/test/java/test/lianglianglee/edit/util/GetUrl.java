@@ -13,7 +13,7 @@ public class GetUrl {
     UserDto dto = new UserDto();
     dto.setId(1L);
     dto.setName("dddd");
-    UserEntity entity = BeanUtils.DtoToEntity(dto, UserEntity.class);
+    UserEntity entity = BeanUtils.dtoToEntity(dto, UserEntity.class);
     System.out.println(entity.getId());
 
   }

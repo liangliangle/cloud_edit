@@ -24,6 +24,10 @@ public class GroupUserEntity extends BaseEntity {
    */
   private String type;
 
+  private String userName;
+
+
+
   /**
    * 状态
    */
@@ -60,5 +64,13 @@ public class GroupUserEntity extends BaseEntity {
 
   public void setStatus(Integer status) {
     this.status = status;
+  }
+
+  public String getUserName() {
+    return userName;
+  }
+
+  public void setUserName(String userName) {
+    this.userName = userName;
   }
 }
