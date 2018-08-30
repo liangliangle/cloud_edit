@@ -1,7 +1,7 @@
 package com.doubi.edit.common.utils;
 
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
+
+import org.apache.commons.codec.binary.Base64;
 
 import java.io.*;
 
@@ -19,14 +19,14 @@ public class Base64Utils {
    * BASE64字符串解码为二进制数据.
    */
   public static byte[] decode(String base64) throws Exception {
-    return new BASE64Decoder().decodeBuffer(base64);
+    return new Base64().decodeBase64(base64);
   }
 
   /**
    * 二进制数据编码为BASE64字符串.
    */
   public static String encode(byte[] bytes) throws Exception {
-    return new String(new BASE64Encoder().encode(bytes));
+    return new String(new Base64().encode(bytes));
   }
 
   /**

@@ -9,11 +9,12 @@ import com.doubi.edit.entity.UserEntity;
  */
 
 public class GetUrl {
-    public static void main(String args[]){
-        UserDto dto=new UserDto();
-        dto.setName("dddd");
-       UserEntity entity= BeanUtils.DtoToEntity(dto,UserEntity.class);
-       System.out.println(entity.getName());
+  public static void main(String args[]) {
+    UserDto dto = new UserDto();
+    dto.setId(1L);
+    dto.setName("dddd");
+    UserEntity entity = BeanUtils.DtoToEntity(dto, UserEntity.class);
+    System.out.println(entity.getId());
 
-    }
+  }
 }

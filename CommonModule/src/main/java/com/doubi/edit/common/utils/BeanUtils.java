@@ -6,6 +6,9 @@ import com.doubi.edit.common.exception.ServiceException;
 import org.apache.log4j.Logger;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class BeanUtils {
 
@@ -34,8 +37,8 @@ public class BeanUtils {
   }
 
   private static <T> T beanCopy(T newO, Object oldO) {
-    Field[] oldFields = oldO.getClass().getDeclaredFields();
-    Field[] newFields = newO.getClass().getDeclaredFields();
+    Field[] oldFields = getAllFields(oldO);
+    Field[] newFields = getAllFields(newO);
     for (Field f1 : oldFields) {
       f1.setAccessible(true);
       for (Field f2 : newFields) {
@@ -52,6 +55,18 @@ public class BeanUtils {
       }
     }
     return newO;
+  }
+
+  private static Field[] getAllFields(Object object) {
+    Class clazz = object.getClass();
+    List<Field> fieldList = new ArrayList<Field>();
+    while (clazz != null) {
+      fieldList.addAll(new ArrayList<Field>(Arrays.asList(clazz.getDeclaredFields())));
+      clazz = clazz.getSuperclass();
+    }
+    Field[] fields = new Field[fieldList.size()];
+    fieldList.toArray(fields);
+    return fields;
   }
 
 
