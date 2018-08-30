@@ -3,16 +3,14 @@ package com.doubi.edit.dto.result.base;
 import com.doubi.edit.common.dto.BaseDto;
 import io.swagger.annotations.ApiModelProperty;
 
-import java.io.Serializable;
-
 /**
  * u_group
  *
  * @author liangliang
  */
-public class GroupDto extends BaseDto{
+public class GroupDto extends BaseDto {
 
-    private String name;
+  private String name;
 
   /**
    * 公开/私有
@@ -53,7 +51,7 @@ public class GroupDto extends BaseDto{
     return status;
   }
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
+  public void setStatus(Integer status) {
+    this.status = status;
+  }
 }

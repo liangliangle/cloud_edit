@@ -18,7 +18,6 @@ public class GroupCreateDto extends BaseDto {
   private Long userId;
 
 
-
   public String getName() {
     return name;
   }

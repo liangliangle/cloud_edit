@@ -2,6 +2,7 @@ package com.doubi.edit.common.exception;
 
 /**
  * 禁止访问的异常.
+ *
  * @author 李亮亮
  */
 public class ForbiddenException extends BaseException {
@@ -23,7 +24,7 @@ public class ForbiddenException extends BaseException {
   }
 
   public ForbiddenException(String message, Throwable cause, boolean enableSuppression,
-      boolean writableStackTrace) {
+                            boolean writableStackTrace) {
     super(message, cause, enableSuppression, writableStackTrace);
   }
 

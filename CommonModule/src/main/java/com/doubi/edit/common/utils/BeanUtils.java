@@ -1,7 +1,7 @@
 package com.doubi.edit.common.utils;
 
-import com.doubi.edit.common.entity.BaseEntity;
 import com.doubi.edit.common.dto.BaseDto;
+import com.doubi.edit.common.entity.BaseEntity;
 import com.doubi.edit.common.exception.ServiceException;
 import org.apache.log4j.Logger;
 

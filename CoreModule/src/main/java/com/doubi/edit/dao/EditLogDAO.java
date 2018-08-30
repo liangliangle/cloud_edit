@@ -2,7 +2,6 @@ package com.doubi.edit.dao;
 
 import com.doubi.edit.entity.EditLogEntity;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
 
 /**
  * EditLogDAO继承基类

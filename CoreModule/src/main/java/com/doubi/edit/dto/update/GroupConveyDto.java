@@ -5,24 +5,24 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class GroupConveyDto extends BaseDto {
 
-    @ApiModelProperty("新管理员ID")
-    private Long newUserId;
-    @ApiModelProperty("旧管理员ID")
-    private Long oldUserId;
+  @ApiModelProperty("新管理员ID")
+  private Long newUserId;
+  @ApiModelProperty("旧管理员ID")
+  private Long oldUserId;
 
-    public Long getNewUserId() {
-        return newUserId;
-    }
+  public Long getNewUserId() {
+    return newUserId;
+  }
 
-    public void setNewUserId(Long newUserId) {
-        this.newUserId = newUserId;
-    }
+  public void setNewUserId(Long newUserId) {
+    this.newUserId = newUserId;
+  }
 
-    public Long getOldUserId() {
-        return oldUserId;
-    }
+  public Long getOldUserId() {
+    return oldUserId;
+  }
 
-    public void setOldUserId(Long oldUserId) {
-        this.oldUserId = oldUserId;
-    }
+  public void setOldUserId(Long oldUserId) {
+    this.oldUserId = oldUserId;
+  }
 }

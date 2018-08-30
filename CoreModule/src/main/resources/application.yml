@@ -1,0 +1,32 @@
+server:
+  port: 7072
+spring:
+  application:
+    name: edit-server
+  datasource:
+    url: @db.url@
+    username: @db.user@
+    password: @db.password@
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  devtools:
+    restart:
+      enabled: true
+    livereload:
+      enabled: true
+
+mybatis:
+  typeAliasesPackage: com.doubi.edit.entity
+  mapperLocations: classpath:mapper/*.xml
+  configuration:
+    use-generated-keys: true
+logging:
+  file: ./edit/log.log
+  level:
+    root: info
+    com.doubi.edit.dao: debug
+
+oss:
+  accessKeyId: @oss.accessKeyId@
+  accessKeySecret: @oss.accessKeySecret@
+  endpoint: @oss.endpoint@
+  bucketName: @oss.bucketName@

@@ -23,7 +23,7 @@ public class EditUtils {
    * MD5 encode.
    */
   public static String encoderByMd5(String str)
-      throws NoSuchAlgorithmException, UnsupportedEncodingException {
+          throws NoSuchAlgorithmException, UnsupportedEncodingException {
     MessageDigest md5 = MessageDigest.getInstance("MD5");
     BASE64Encoder base64en = new BASE64Encoder();
     return base64en.encode(md5.digest(str.getBytes("utf-8")));
@@ -48,7 +48,6 @@ public class EditUtils {
   public static String getDateStringFromTimeStamp(Timestamp timestamp) {
     return format.format(timestamp);
   }
-
 
 
 }

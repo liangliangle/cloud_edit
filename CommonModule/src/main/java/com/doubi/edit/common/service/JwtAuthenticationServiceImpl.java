@@ -2,12 +2,12 @@ package com.doubi.edit.common.service;
 
 
 import com.doubi.edit.common.config.RsaKeyConfig;
+import com.doubi.edit.common.exception.AuthorizationException;
 import com.doubi.edit.common.model.EditJwtModel;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.doubi.edit.common.exception.AuthorizationException;
 import org.jose4j.jwk.RsaJsonWebKey;
 import org.jose4j.jws.AlgorithmIdentifiers;
 import org.jose4j.jws.JsonWebSignature;
@@ -55,7 +55,7 @@ public class JwtAuthenticationServiceImpl {
   }
 
   private String prepareToken(EditJwtModel model, int timeOfminutes)
-    throws JoseException, JsonProcessingException {
+          throws JoseException, JsonProcessingException {
 
     logger.info("##GENETATE TOKEN## with userName " + model.getUserName());
 
@@ -93,8 +93,8 @@ public class JwtAuthenticationServiceImpl {
   private EditJwtModel getMassJwtModel(String jwt) {
     EditJwtModel model = null;
     JwtConsumer jwtConsumer = new JwtConsumerBuilder().setRequireExpirationTime()
-      .setAllowedClockSkewInSeconds(30).setExpectedIssuer(EXPECTED_ISSUER)
-      .setExpectedAudience(AUDIENCER).setVerificationKey(rsaJsonWebKey.getKey()).build();
+            .setAllowedClockSkewInSeconds(30).setExpectedIssuer(EXPECTED_ISSUER)
+            .setExpectedAudience(AUDIENCER).setVerificationKey(rsaJsonWebKey.getKey()).build();
     try {
       JwtClaims jwtClaims = jwtConsumer.processToClaims(jwt);
       String s = (String) jwtClaims.getClaimValue("User");

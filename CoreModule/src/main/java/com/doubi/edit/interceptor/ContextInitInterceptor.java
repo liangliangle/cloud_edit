@@ -2,18 +2,16 @@ package com.doubi.edit.interceptor;
 
 import com.doubi.edit.common.model.EditJwtModel;
 import com.doubi.edit.common.service.JwtAuthenticationServiceImpl;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.support.RequestContext;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
-import java.net.URLDecoder;
 
 /**
  * 将从传来的值，存储在线程上下文中。供service, controller调用.
@@ -23,7 +21,7 @@ public class ContextInitInterceptor implements HandlerInterceptor {
   @Autowired
   private JwtAuthenticationServiceImpl jwtAuthenticationService;
 
-  private static Logger logger = Logger.getLogger(ContextInitInterceptor.class);
+  private static Logger logger = LoggerFactory.getLogger(ContextInitInterceptor.class);
 
   @Override
   public void afterCompletion(HttpServletRequest httpServletRequest,
@@ -41,7 +39,7 @@ public class ContextInitInterceptor implements HandlerInterceptor {
       return true;
     }
     if (!"get".equals(request.getMethod().toLowerCase()) && requestUri.contentEquals
-      ("/api/user/login")) {
+            ("/api/user/login")) {
       return true;
     }
     if ("post".equals(request.getMethod().toLowerCase()) && requestUri.equals("/api/user")) {
@@ -66,7 +64,7 @@ public class ContextInitInterceptor implements HandlerInterceptor {
   @Override
   public void postHandle(HttpServletRequest httpServletRequest,
                          HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView)
-    throws Exception {
+          throws Exception {
 
   }
 }

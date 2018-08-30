@@ -2,8 +2,6 @@ package com.doubi.edit.common.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 
-import java.io.Serializable;
-
 @SuppressWarnings("serial")
 public class BaseDto {
   @ApiModelProperty("主键 id")

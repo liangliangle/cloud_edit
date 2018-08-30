@@ -3,14 +3,12 @@ package com.doubi.edit.dto.result.base;
 import com.doubi.edit.common.dto.BaseDto;
 import io.swagger.annotations.ApiModelProperty;
 
-import java.io.Serializable;
-
 /**
  * u_user
  *
  * @author liangliang
  */
-public class UserDto extends BaseDto implements Serializable {
+public class UserDto extends BaseDto {
 
   /**
    * 用户名

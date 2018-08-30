@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
  * FileDAO继承基类
  */
 @Mapper
-public interface FileDAO  {
+public interface FileDAO {
 
   FileEntity selectById(Long id);
 

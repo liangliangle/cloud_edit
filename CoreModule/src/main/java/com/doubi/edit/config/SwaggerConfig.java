@@ -1,7 +1,8 @@
 package com.doubi.edit.config;
 
 import org.apache.commons.lang.time.StopWatch;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
@@ -26,15 +27,15 @@ import static springfox.documentation.builders.PathSelectors.regex;
 public class SwaggerConfig extends WebMvcConfigurationSupport {
   public static final String DEFAULT_INCLUDE_PATTERN = "/api/.*";
 
-  private static Logger log = Logger.getLogger(SwaggerConfig.class);
+  private static Logger log = LoggerFactory.getLogger(SwaggerConfig.class);
 
   @Override
   protected void addResourceHandlers(ResourceHandlerRegistry registry) {
     registry.addResourceHandler("swagger-ui.html")
-      .addResourceLocations("classpath:/META-INF/resources/");
+            .addResourceLocations("classpath:/META-INF/resources/");
 
     registry.addResourceHandler("/webjars/**")
-      .addResourceLocations("classpath:/META-INF/resources/webjars/");
+            .addResourceLocations("classpath:/META-INF/resources/webjars/");
   }
 
   /**
@@ -47,22 +48,22 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     watch.start();
     List<Parameter> pars = new ArrayList<Parameter>();
     pars.add(new ParameterBuilder()
-      .name("Authorization").description("Authorization")
-      .modelRef(new ModelRef("string")).parameterType("header")
-      .required(true).build());
+            .name("Authorization").description("Authorization")
+            .modelRef(new ModelRef("string")).parameterType("header")
+            .required(true).build());
     Docket swaggerSpringMvcPlugin = new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo())
-      .genericModelSubstitutes(ResponseEntity.class).select()
-      .paths(regex(DEFAULT_INCLUDE_PATTERN)) // and by paths
-      .build().globalOperationParameters(pars);
+            .genericModelSubstitutes(ResponseEntity.class).select()
+            .paths(regex(DEFAULT_INCLUDE_PATTERN)) // and by paths
+            .build().globalOperationParameters(pars);
     watch.stop();
     return swaggerSpringMvcPlugin;
   }
 
   private ApiInfo apiInfo() {
     return new ApiInfoBuilder().title("云笔记API")
-      .description("一群逗逼朋友")
-      .termsOfServiceUrl("")
-      .version("1.0").build();
+            .description("一群逗逼朋友")
+            .termsOfServiceUrl("")
+            .version("1.0").build();
 
 
   }

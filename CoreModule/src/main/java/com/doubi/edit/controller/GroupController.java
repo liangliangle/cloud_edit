@@ -2,15 +2,15 @@ package com.doubi.edit.controller;
 
 import com.doubi.edit.common.controller.BaseController;
 import com.doubi.edit.dto.create.GroupCreateDto;
-import com.doubi.edit.dto.result.base.GroupDto;
 import com.doubi.edit.dto.result.GroupDetailDto;
+import com.doubi.edit.dto.result.base.GroupDto;
 import com.doubi.edit.dto.update.GroupUpdateDto;
 import com.doubi.edit.service.GroupService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class GroupController extends BaseController {
   private GroupService groupService;
 
 
-  private static Logger logger = Logger.getLogger(GroupController.class);
+  private static Logger logger = LoggerFactory.getLogger(GroupController.class);
 
   @PostMapping("")
   @ApiOperation("创建小组")

@@ -2,17 +2,17 @@ package com.doubi.edit.common.entity;
 
 import com.doubi.edit.common.utils.EditUtils;
 
-import java.io.Serializable;
 import java.util.Date;
 
 
-public class BaseEntity implements Serializable {
+public class BaseEntity {
 
   private Long id;
 
   private Date createTime;
 
   private Date lastUpdateTime;
+
   public Long getId() {
     return id;
   }
@@ -43,7 +43,7 @@ public class BaseEntity implements Serializable {
     setLastUpdateTime(EditUtils.getCurrentTimestamp());
   }
 
-  public void buildDefaultLastTime(){
+  public void buildDefaultLastTime() {
     setLastUpdateTime(EditUtils.getCurrentTimestamp());
   }
 }

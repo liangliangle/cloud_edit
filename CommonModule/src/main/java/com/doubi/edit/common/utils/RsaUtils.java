@@ -56,19 +56,19 @@ public class RsaUtils {
 
 
   public static final String PUBLIC_RSA_KEY = "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKCZSUwgGo5sT2rTjv"
-      + "f9pl25Sap+8VktMvaCM/yunjInWvvt2fb2HZishCjdJobBSzeb4RGYXdx5+QJhRaUqc6cCAwEAAQ==";
+          + "f9pl25Sap+8VktMvaCM/yunjInWvvt2fb2HZishCjdJobBSzeb4RGYXdx5+QJhRaUqc6cCAwEAAQ==";
 
 
   public static final String PRIVATE_RSA_KEY =
-      "MIIBVAIBADANBgkqhkiG9w0BAQEFAASCAT4wggE6AgEAAkEAoJlJTCAajmxPatOO9/2m"
-          + "XblJqn7xWS0y9oIz/K6eMida++3Z9vYdmKyEKN0mhsFLN5vhEZhd3Hn5AmFFpSpzpwIDAQABAkB"
-          + "OLvG5BrQG/AGZrw6d+jUg0"
-          + "ZBkWVJjqJZz3aUzcUsAfNTQYWKhUc3Wdb5At/qX5YumR0Z7v6OE7Si8XXTz1CbZAiEA0S0guE3U"
-          + "bHfmf2rVGtnwyMuRuO87XJ"
-          + "MkOcpiuJuIYC0CIQDEjGsrJ7xp+osaFwmuEfYvWEUDbt6UXdiur3m65kVzowIgX+EnllNWg0GSTeVS"
-          + "OTScwe1Npk9CDnUDrdmu1"
-          + "p+0KyECIQCc7ZhrfnB7FWWW0SoTZ5fuOUXw9caVI1DsOIKy7UQqjQIgV1BqZ7RTazekD+2U49qOB"
-          + "wRbutZTb2BmIUphCV6Q5NQ=";
+          "MIIBVAIBADANBgkqhkiG9w0BAQEFAASCAT4wggE6AgEAAkEAoJlJTCAajmxPatOO9/2m"
+                  + "XblJqn7xWS0y9oIz/K6eMida++3Z9vYdmKyEKN0mhsFLN5vhEZhd3Hn5AmFFpSpzpwIDAQABAkB"
+                  + "OLvG5BrQG/AGZrw6d+jUg0"
+                  + "ZBkWVJjqJZz3aUzcUsAfNTQYWKhUc3Wdb5At/qX5YumR0Z7v6OE7Si8XXTz1CbZAiEA0S0guE3U"
+                  + "bHfmf2rVGtnwyMuRuO87XJ"
+                  + "MkOcpiuJuIYC0CIQDEjGsrJ7xp+osaFwmuEfYvWEUDbt6UXdiur3m65kVzowIgX+EnllNWg0GSTeVS"
+                  + "OTScwe1Npk9CDnUDrdmu1"
+                  + "p+0KyECIQCc7ZhrfnB7FWWW0SoTZ5fuOUXw9caVI1DsOIKy7UQqjQIgV1BqZ7RTazekD+2U49qOB"
+                  + "wRbutZTb2BmIUphCV6Q5NQ=";
 
   /**
    * 生成密钥对(公钥和私钥).
@@ -88,7 +88,7 @@ public class RsaUtils {
   /**
    * 用私钥对信息生成数字签名.
    *
-   * @param data 已加密数据
+   * @param data       已加密数据
    * @param privateKey 私钥(BASE64编码)
    */
   public static String sign(byte[] data, String privateKey) throws Exception {
@@ -105,9 +105,9 @@ public class RsaUtils {
   /**
    * 校验数字签名.
    *
-   * @param data 已加密数据
+   * @param data      已加密数据
    * @param publicKey 公钥(BASE64编码)
-   * @param sign 数字签名
+   * @param sign      数字签名
    */
   public static boolean verify(byte[] data, String publicKey, String sign) throws Exception {
     byte[] keyBytes = Base64Utils.decode(publicKey);
@@ -124,10 +124,10 @@ public class RsaUtils {
    * 私钥解密.
    *
    * @param encryptedData 已加密数据
-   * @param privateKey 私钥(BASE64编码)
+   * @param privateKey    私钥(BASE64编码)
    */
   public static byte[] decryptByPrivateKey(byte[] encryptedData, String privateKey)
-      throws Exception {
+          throws Exception {
     byte[] keyBytes = Base64Utils.decode(privateKey);
     PKCS8EncodedKeySpec pkcs8KeySpec = new PKCS8EncodedKeySpec(keyBytes);
     KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
@@ -159,7 +159,7 @@ public class RsaUtils {
    * 公钥解密.
    *
    * @param encryptedData 已加密数据
-   * @param publicKey 公钥(BASE64编码)
+   * @param publicKey     公钥(BASE64编码)
    */
   public static byte[] decryptByPublicKey(byte[] encryptedData, String publicKey) throws Exception {
     byte[] keyBytes = Base64Utils.decode(publicKey);
@@ -192,7 +192,7 @@ public class RsaUtils {
   /**
    * 公钥加密.
    *
-   * @param data 源数据
+   * @param data      源数据
    * @param publicKey 公钥(BASE64编码)
    */
   public static byte[] encryptByPublicKey(byte[] data, String publicKey) throws Exception {
@@ -227,7 +227,7 @@ public class RsaUtils {
   /**
    * 私钥加密.
    *
-   * @param data 源数据
+   * @param data       源数据
    * @param privateKey 私钥(BASE64编码)
    */
   public static byte[] encryptByPrivateKey(byte[] data, String privateKey) throws Exception {
@@ -284,7 +284,7 @@ public class RsaUtils {
   public static String encryptWithRsa(String original) {
     try {
       byte[] enCodeByte =
-          RsaUtils.encryptByPublicKey(original.getBytes("utf-8"), RsaUtils.PUBLIC_RSA_KEY);
+              RsaUtils.encryptByPublicKey(original.getBytes("utf-8"), RsaUtils.PUBLIC_RSA_KEY);
       return java.util.Base64.getEncoder().encodeToString(enCodeByte);
     } catch (Exception e) {
       e.printStackTrace();
@@ -298,7 +298,7 @@ public class RsaUtils {
   public static String decryptWithRsa(String encryptedString) {
     try {
       byte[] deCodeByte = RsaUtils.decryptByPrivateKey(
-          java.util.Base64.getDecoder().decode(encryptedString), RsaUtils.PRIVATE_RSA_KEY);
+              java.util.Base64.getDecoder().decode(encryptedString), RsaUtils.PRIVATE_RSA_KEY);
 
       String deCodeSource = new String(deCodeByte, "utf-8");
 

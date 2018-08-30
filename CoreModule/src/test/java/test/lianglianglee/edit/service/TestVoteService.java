@@ -13,7 +13,6 @@ import test.lianglianglee.edit.TestApplication;
 public class TestVoteService {
 
 
-
   @Autowired
   private ObjectMapper objectMapper;
 

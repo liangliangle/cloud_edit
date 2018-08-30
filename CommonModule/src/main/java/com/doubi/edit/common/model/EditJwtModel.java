@@ -2,7 +2,7 @@ package com.doubi.edit.common.model;
 
 /**
  * @author 李亮亮
- *  token的信息
+ * token的信息
  */
 public class EditJwtModel {
 

@@ -2,7 +2,7 @@ package com.doubi.edit.common.exception;
 
 /**
  * 数据访问层exception.
- * 
+ *
  * @author 李亮亮
  */
 public class DaoException extends BaseException {
@@ -23,7 +23,7 @@ public class DaoException extends BaseException {
   }
 
   public DaoException(String message, Throwable cause, boolean enableSuppression,
-      boolean writableStackTrace) {
+                      boolean writableStackTrace) {
     super(message, cause, enableSuppression, writableStackTrace);
   }
 

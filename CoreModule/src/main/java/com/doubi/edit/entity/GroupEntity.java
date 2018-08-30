@@ -2,55 +2,54 @@ package com.doubi.edit.entity;
 
 import com.doubi.edit.common.entity.BaseEntity;
 
-import java.io.Serializable;
-
 /**
  * u_group
- * @author  liangliang
+ *
+ * @author liangliang
  */
-public class GroupEntity extends BaseEntity implements Serializable {
+public class GroupEntity extends BaseEntity {
 
-    private String name;
+  private String name;
 
-    /**
-     * 公开/私有
-     */
-    private String type;
+  /**
+   * 公开/私有
+   */
+  private String type;
 
-    private Long userId;
+  private Long userId;
 
-    private Integer status;
+  private Integer status;
 
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public String getType() {
-        return type;
-    }
+  public String getType() {
+    return type;
+  }
 
-    public void setType(String type) {
-        this.type = type;
-    }
+  public void setType(String type) {
+    this.type = type;
+  }
 
-    public Long getUserId() {
-        return userId;
-    }
+  public Long getUserId() {
+    return userId;
+  }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
+  public void setUserId(Long userId) {
+    this.userId = userId;
+  }
 
-    public Integer getStatus() {
-        return status;
-    }
+  public Integer getStatus() {
+    return status;
+  }
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
+  public void setStatus(Integer status) {
+    this.status = status;
+  }
 }

@@ -2,13 +2,14 @@ package com.doubi.edit.common.exception;
 
 /**
  * Base exception for project.
- * 
+ *
  * @author 李亮亮
  */
 public class BaseException extends RuntimeException {
 
 
-  public BaseException() {}
+  public BaseException() {
+  }
 
   public BaseException(String message) {
     super(message);
@@ -25,7 +26,7 @@ public class BaseException extends RuntimeException {
   }
 
   public BaseException(String message, Throwable cause, boolean enableSuppression,
-      boolean writableStackTrace) {
+                       boolean writableStackTrace) {
     super(message, cause, enableSuppression, writableStackTrace);
     cause.printStackTrace();
   }

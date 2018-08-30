@@ -2,14 +2,12 @@ package com.doubi.edit.dto.result.base;
 
 import com.doubi.edit.common.dto.BaseDto;
 
-import java.io.Serializable;
-
 /**
  * u_group_user liangliang
  *
  * @author
  */
-public class GroupUserDto extends BaseDto implements Serializable {
+public class GroupUserDto extends BaseDto {
 
   /**
    * 用户ID

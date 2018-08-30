@@ -2,9 +2,8 @@ package com.doubi.edit.interceptor;
 
 /**
  * 保存请求的上下文.
- * 
- * @author lianglianglee
  *
+ * @author lianglianglee
  */
 public class HttpContext {
   private String token;
@@ -19,7 +18,8 @@ public class HttpContext {
     }
   };
 
-  private HttpContext() {}
+  private HttpContext() {
+  }
 
   public static HttpContext getContext() {
     return contextLocal.get();
@@ -28,7 +28,6 @@ public class HttpContext {
   public static void removeContext() {
     contextLocal.remove();
   }
-
 
 
   public String getToken() {

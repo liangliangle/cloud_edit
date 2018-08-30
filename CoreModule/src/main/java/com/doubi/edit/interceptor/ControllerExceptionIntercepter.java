@@ -1,20 +1,15 @@
-
 package com.doubi.edit.interceptor;
-
-import java.nio.file.AccessDeniedException;
-import java.util.HashMap;
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
 
 import com.doubi.edit.common.exception.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.nio.file.AccessDeniedException;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -33,7 +28,7 @@ public class ControllerExceptionIntercepter {
   @ResponseStatus(HttpStatus.NOT_FOUND)
   public Object notFoundExceptionHandler(HttpServletRequest req, Exception e) throws Exception {
     return evaluateExceptionObject(req, e,
-        "---controllerExceptionHandler ---Host {} invokes url {} ERROR: {}");
+            "---controllerExceptionHandler ---Host {} invokes url {} ERROR: {}");
   }
 
   @ExceptionHandler(value = {ValidationException.class, ServiceException.class, DaoException.class})
@@ -41,7 +36,7 @@ public class ControllerExceptionIntercepter {
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public Object controllerExceptionHandler(HttpServletRequest req, Exception e) throws Exception {
     return evaluateExceptionObject(req, e,
-        "---controllerExceptionHandler ---Host {} invokes url {} ERROR: {}");
+            "---controllerExceptionHandler ---Host {} invokes url {} ERROR: {}");
   }
 
 
@@ -50,11 +45,8 @@ public class ControllerExceptionIntercepter {
   @ResponseStatus(HttpStatus.FORBIDDEN)
   public Object forbiddenExceptionHandler(HttpServletRequest req, Exception e) throws Exception {
     return evaluateExceptionObject(req, e,
-        "---controllerExceptionHandler ---Host {} invokes url {} ERROR: {}");
+            "---controllerExceptionHandler ---Host {} invokes url {} ERROR: {}");
   }
-
-
-
 
 
   private Object evaluateExceptionObject(HttpServletRequest req, Exception e, String s) {
@@ -71,7 +63,7 @@ public class ControllerExceptionIntercepter {
   @ResponseStatus(HttpStatus.UNAUTHORIZED)
   public Object unauthorizedException(HttpServletRequest request, Exception e) {
     return evaluateExceptionObject(request, e,
-        "---Serivice Handler ---Host {} invokes url {} ERROR: {}");
+            "---Serivice Handler ---Host {} invokes url {} ERROR: {}");
   }
 
   @ExceptionHandler(value = AccessDeniedException.class)
@@ -79,7 +71,7 @@ public class ControllerExceptionIntercepter {
   @ResponseStatus(HttpStatus.UNAUTHORIZED)
   public Object accessDenyExceptionHandler(HttpServletRequest req, Exception e) throws Exception {
     return evaluateExceptionObject(req, e,
-        "---Serivice Handler ---Host {} invokes url {} ERROR: {}");
+            "---Serivice Handler ---Host {} invokes url {} ERROR: {}");
   }
 
   @ExceptionHandler(value = RuntimeException.class)
@@ -87,6 +79,6 @@ public class ControllerExceptionIntercepter {
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   public Object runtimeExceptionHandler(HttpServletRequest req, Exception e) throws Exception {
     return evaluateExceptionObject(req, e,
-        "---Serivice Handler ---Host {} invokes url {} ERROR: {}");
+            "---Serivice Handler ---Host {} invokes url {} ERROR: {}");
   }
 }

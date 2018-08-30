@@ -1,10 +1,10 @@
 package com.doubi.edit.utils;
 
+import com.doubi.edit.common.exception.ServiceException;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
-import com.doubi.edit.common.exception.ServiceException;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -48,7 +48,7 @@ public class Qrcode {
    * @throws IOException IO异常
    */
   private static ByteArrayOutputStream writeToStream(BitMatrix matrix)
-      throws IOException {
+          throws IOException {
     BufferedImage image = toBufferedImage(matrix);
     ByteArrayOutputStream stream = new ByteArrayOutputStream();
     ImageIO.write(image, "jpg", stream);
@@ -62,9 +62,9 @@ public class Qrcode {
       Map hints = new HashMap();
       hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
       BitMatrix bitMatrix = multiFormatWriter.encode(content, BarcodeFormat.QR_CODE, 400,
-          400, hints);
+              400, hints);
       ByteArrayOutputStream byteArrayOutputStream = Qrcode.writeToStream(bitMatrix);
-      return  Base64.getEncoder().encodeToString(byteArrayOutputStream.toByteArray());
+      return Base64.getEncoder().encodeToString(byteArrayOutputStream.toByteArray());
 
     } catch (Exception e) {
       e.printStackTrace();

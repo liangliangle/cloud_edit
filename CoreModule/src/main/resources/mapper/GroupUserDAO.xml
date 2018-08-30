@@ -2,20 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.doubi.edit.dao.GroupUserDAO">
   <resultMap id="BaseResultMap" type="com.doubi.edit.entity.GroupUserEntity">
-    <id column="Id" jdbcType="BIGINT" property="id" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
-    <result column="user_id" jdbcType="BIGINT" property="userId" />
-    <result column="group_id" jdbcType="BIGINT" property="groupId" />
-    <result column="type" jdbcType="VARCHAR" property="type" />
-    <result column="status" jdbcType="INTEGER" property="status" />
+    <id column="Id" jdbcType="BIGINT" property="id"/>
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime"/>
+    <result column="user_id" jdbcType="BIGINT" property="userId"/>
+    <result column="group_id" jdbcType="BIGINT" property="groupId"/>
+    <result column="type" jdbcType="VARCHAR" property="type"/>
+    <result column="status" jdbcType="INTEGER" property="status"/>
   </resultMap>
   <sql id="Base_Column_List">
     Id, create_time, last_update_time, user_id, group_id, type, status
   </sql>
   <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
+    select
+    <include refid="Base_Column_List"/>
     from u_group_user
     where Id = #{id,jdbcType=BIGINT}
   </select>

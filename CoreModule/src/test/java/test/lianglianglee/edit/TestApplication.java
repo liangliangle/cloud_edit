@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @ComponentScan(basePackages = {"com.doubi"})
 @MapperScan("com.doubi.edit.dao")
-public class TestApplication  {
+public class TestApplication {
 
 
-    /**
-     * Start application.
-     *
-     * @param args 启动传入参数
-     */
-    public static void main(final String[] args) {
-        SpringApplication.run(TestApplication.class, args);
-    }
+  /**
+   * Start application.
+   *
+   * @param args 启动传入参数
+   */
+  public static void main(final String[] args) {
+    SpringApplication.run(TestApplication.class, args);
+  }
 
 }
