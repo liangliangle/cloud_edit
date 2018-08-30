@@ -26,4 +26,6 @@ public interface UserService {
   void insert(UserCreateDto dto);
 
   void checkCode(Long userId, String code);
+
+  UserDto getById(Long id);
 }

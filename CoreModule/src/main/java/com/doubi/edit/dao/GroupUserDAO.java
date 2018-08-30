@@ -1,7 +1,9 @@
 package com.doubi.edit.dao;
 
+import com.doubi.edit.entity.GroupEntity;
 import com.doubi.edit.entity.GroupUserEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,4 +23,9 @@ public interface GroupUserDAO {
 
 
   List<GroupUserEntity> getByGroupId(Long groupId);
+
+
+  List<GroupUserEntity> getByUserIdAndGroupId(@Param("userId") Long userId,
+                                              @Param("groupId") Long groupId);
+
 }

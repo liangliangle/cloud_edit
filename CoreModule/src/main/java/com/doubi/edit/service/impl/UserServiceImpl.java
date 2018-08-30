@@ -13,6 +13,7 @@ import com.doubi.edit.dto.result.base.LoginDto;
 import com.doubi.edit.dto.result.base.UserDto;
 import com.doubi.edit.dto.update.UserPasswordDto;
 import com.doubi.edit.entity.UserEntity;
+import com.doubi.edit.enums.GroupTypeEnum;
 import com.doubi.edit.service.GroupService;
 import com.doubi.edit.service.UserService;
 import com.doubi.edit.utils.Qrcode;
@@ -111,7 +112,7 @@ public class UserServiceImpl implements UserService {
     userDAO.insert(entity);
     GroupCreateDto groupCreateDto = new GroupCreateDto();
     groupCreateDto.setName("默认笔记");
-    groupCreateDto.setType("个人");
+    groupCreateDto.setType(GroupTypeEnum.PRIVATE.getType());
     groupCreateDto.setUserId(entity.getId());
     groupCreateDto.setUserName(entity.getName());
     groupService.insert(groupCreateDto);
@@ -151,5 +152,11 @@ public class UserServiceImpl implements UserService {
     if (!check) {
       throw new ServiceException("验证失败，请重试");
     }
+  }
+
+  @Override
+  public UserDto getById(Long id) {
+    UserEntity entity = userDAO.selectById(id);
+    return BeanUtils.entityToDto(entity, UserDto.class);
   }
 }

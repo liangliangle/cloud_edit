@@ -5,14 +5,18 @@ import com.doubi.edit.common.utils.BeanUtils;
 import com.doubi.edit.dao.GroupDAO;
 import com.doubi.edit.dao.GroupUserDAO;
 import com.doubi.edit.dto.create.GroupCreateDto;
+import com.doubi.edit.dto.create.GroupUserCreateDto;
 import com.doubi.edit.dto.result.GroupDetailDto;
 import com.doubi.edit.dto.result.base.GroupDto;
 import com.doubi.edit.dto.result.base.GroupUserDto;
-import com.doubi.edit.dto.update.GroupUpdateDto;
+import com.doubi.edit.dto.result.base.UserDto;
 import com.doubi.edit.entity.GroupEntity;
 import com.doubi.edit.entity.GroupUserEntity;
+import com.doubi.edit.enums.GroupTypeEnum;
+import com.doubi.edit.enums.GroupUserTypeEnum;
 import com.doubi.edit.interceptor.HttpContext;
 import com.doubi.edit.service.GroupService;
+import com.doubi.edit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +31,8 @@ public class GroupServiceImpl implements GroupService {
   private GroupDAO groupDAO;
   @Autowired
   private GroupUserDAO groupUserDAO;
+  @Autowired
+  private UserService userService;
 
   @Override
   @Transactional(rollbackFor = ServiceException.class)
@@ -38,7 +44,7 @@ public class GroupServiceImpl implements GroupService {
     GroupUserEntity entity = new GroupUserEntity();
     entity.setGroupId(groupEntity.getId());
     entity.setUserId(dto.getUserId());
-    entity.setType("管理");
+    entity.setType(GroupUserTypeEnum.ADMIN.getType());
     entity.setStatus(1);
     entity.setUserName(dto.getUserName());
     entity.buildDefaultTimeStamp();
@@ -46,11 +52,11 @@ public class GroupServiceImpl implements GroupService {
   }
 
   @Override
-  public void update(GroupUpdateDto dto, Long id) {
-    GroupEntity entity = groupDAO.selectById(dto.getId());
+  public void update(String newName, Long id) {
+    GroupEntity entity = groupDAO.selectById(id);
     checkRole(entity, true);
     entity.buildDefaultLastTime();
-    entity.setName(dto.getName());
+    entity.setName(newName);
     groupDAO.updateById(entity);
   }
 
@@ -84,6 +90,62 @@ public class GroupServiceImpl implements GroupService {
       dtos.add(BeanUtils.entityToDto(entity, GroupDto.class));
     }
     return dtos;
+  }
+
+  @Override
+  @Transactional(rollbackFor = ServiceException.class)
+  public void conveyGroup(Long id, Long userId) {
+    GroupEntity entity = groupDAO.selectById(id);
+    if (GroupTypeEnum.PRIVATE.getType().equals(entity.getType())) {
+      throw new ServiceException("私有小组无法转让");
+    }
+    checkRole(entity, true);
+    List<GroupUserEntity> oldAdmin = groupUserDAO.getByUserIdAndGroupId(id, entity.getUserId());
+    for (GroupUserEntity user : oldAdmin) {
+      if (user.getStatus().equals(1)) {
+        user.setType(GroupUserTypeEnum.MEMBER.getType());
+        user.buildDefaultLastTime();
+        groupUserDAO.updateById(user);
+      }
+    }
+    List<GroupUserEntity> newAdmin = groupUserDAO.getByUserIdAndGroupId(id, userId);
+    for (GroupUserEntity user : newAdmin) {
+      if (user.getStatus().equals(1)) {
+        user.setType(GroupUserTypeEnum.ADMIN.getType());
+        user.buildDefaultLastTime();
+        groupUserDAO.updateById(user);
+      }
+    }
+    entity.setUserId(userId);
+    entity.buildDefaultLastTime();
+    groupDAO.updateById(entity);
+  }
+
+  @Override
+  public void addUserByGroup(GroupUserCreateDto dto) {
+    GroupEntity group = groupDAO.selectById(dto.getGroupId());
+    checkRole(group, true);
+    List<GroupUserEntity> userEntities = groupUserDAO.getByUserIdAndGroupId(dto.getUserId(), dto
+      .getGroupId());
+    for (GroupUserEntity entity : userEntities) {
+      if (entity.getStatus().equals(1)) {
+        throw new ServiceException("用户已经加入小组");
+      }
+      if (entity.getStatus().equals(2)) {
+        throw new ServiceException("邀请已发出，不可重复邀请");
+      }
+    }
+    GroupUserEntity userEntity = new GroupUserEntity();
+    userEntity.setType(GroupUserTypeEnum.MEMBER.getType());
+    userEntity.setGroupId(dto.getGroupId());
+    userEntity.setStatus(2);
+    userEntity.setUserId(dto.getUserId());
+    UserDto user = userService.getById(dto.getUserId());
+    if (null == user) {
+      throw new ServiceException("用户不存在");
+    }
+    userEntity.setUserName(user.getName());
+    groupUserDAO.insert(userEntity);
   }
 
   private void checkRole(GroupEntity entity, Boolean update) {

@@ -2,9 +2,10 @@ package com.doubi.edit.controller;
 
 import com.doubi.edit.common.controller.BaseController;
 import com.doubi.edit.dto.create.GroupCreateDto;
+import com.doubi.edit.dto.create.GroupUserCreateDto;
 import com.doubi.edit.dto.result.GroupDetailDto;
 import com.doubi.edit.dto.result.base.GroupDto;
-import com.doubi.edit.dto.update.GroupUpdateDto;
+import com.doubi.edit.dto.result.base.GroupUserDto;
 import com.doubi.edit.service.GroupService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -45,16 +46,27 @@ public class GroupController extends BaseController {
 
   @PutMapping("rename/{id}")
   @ApiOperation("修改小组信息")
-  public void update(@RequestBody GroupUpdateDto dto, @PathVariable("id") Long id) {
-
-    groupService.update(dto, id);
+  public void update(@RequestParam("newName") String newName, @PathVariable("id") Long id) {
+    groupService.update(newName, id);
 
   }
 
-  @PutMapping("convey{id}")
+  @PutMapping("convey/{id}")
   @ApiOperation("转让小组")
-  public void conveyGroup() {
-//todo
+  public void conveyGroup(@PathVariable("id") Long id, @RequestParam("userId") Long userId) {
+    groupService.conveyGroup(id, userId);
+  }
+
+  @PostMapping("user")
+  @ApiOperation("邀请用户到小组")
+  public void addUserByGroup(@RequestBody GroupUserCreateDto dto) {
+    groupService.addUserByGroup(dto);
+  }
+
+  @PutMapping("{id}")
+  @ApiOperation("同意或拒绝加入小组")
+  public void submitToGroup(@PathVariable("id") Long id, @RequestParam("status") Boolean status) {
+    //TODO
   }
 
 }

@@ -37,6 +37,9 @@ public class BeanUtils {
   }
 
   private static <T> T beanCopy(T newO, Object oldO) {
+    if (null == oldO) {
+      return newO;
+    }
     Field[] oldFields = getAllFields(oldO);
     Field[] newFields = getAllFields(newO);
     for (Field f1 : oldFields) {
