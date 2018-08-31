@@ -1,10 +1,13 @@
 package test.lianglianglee.edit;
 
+import com.doubi.edit.interceptor.ContextInitInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 
 @SpringBootApplication
@@ -13,7 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 @MapperScan("com.doubi.edit.dao")
 public class TestApplication {
 
-
+  @Resource
+  ContextInitInterceptor contextInitInterceptor;
   /**
    * Start application.
    *
