@@ -13,7 +13,7 @@ CREATE TABLE `e_edit` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `last_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `user_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '创建人',
-  `user_name` varchar(255) NOT NULL COMMENT '用户名-冗余',
+
   `group_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '小组ID',
   `user_name` varchar(255) NOT NULL DEFAULT '' COMMENT '用户名',
   `parent_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '父ID',
@@ -120,6 +120,7 @@ CREATE TABLE `u_group_user` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `last_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更新时间',
   `user_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `user_name` varchar(255) NOT NULL COMMENT '用户名-冗余',
   `group_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '小组ID',
   `type` varchar(255) NOT NULL DEFAULT '' COMMENT '类型',
   `status` int(1) NOT NULL DEFAULT '1' COMMENT '状态',
