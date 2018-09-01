@@ -11,5 +11,5 @@ import com.doubi.edit.dto.MonitorInfoBean;
  */
 public interface IMonitorService {
 
-   MonitorInfoBean getMonitorInfoBean() throws Exception;
+  MonitorInfoBean getMonitorInfoBean() throws Exception;
 }

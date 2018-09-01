@@ -13,7 +13,6 @@ CREATE TABLE `e_edit` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `last_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `user_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '创建人',
-
   `group_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '小组ID',
   `user_name` varchar(255) NOT NULL DEFAULT '' COMMENT '用户名',
   `parent_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '父ID',
@@ -56,7 +55,7 @@ CREATE TABLE `e_edit_log` (
   `Id` bigint(20) NOT NULL AUTO_INCREMENT,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `content` text NOT NULL COMMENT '日志',
+  `info_id` bigint(20) NOT NULL COMMENT '笔记ID',
   `edit_id` bigint(20) NOT NULL DEFAULT '0',
   `type` varchar(255) NOT NULL DEFAULT '' COMMENT '类型，创建，修改，分享，删除',
   `status` int(1) NOT NULL DEFAULT '1',

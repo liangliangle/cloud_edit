@@ -13,7 +13,9 @@ public class EditLogEntity extends BaseEntity {
   /**
    * 正文
    */
-  private String content;
+  private Long infoId;
+
+  private Long editId;
 
   /**
    * 类型
@@ -22,13 +24,20 @@ public class EditLogEntity extends BaseEntity {
 
   private Integer status;
 
-
-  public String getContent() {
-    return content;
+  public Long getInfoId() {
+    return infoId;
   }
 
-  public void setContent(String content) {
-    this.content = content;
+  public void setInfoId(Long infoId) {
+    this.infoId = infoId;
+  }
+
+  public Long getEditId() {
+    return editId;
+  }
+
+  public void setEditId(Long editId) {
+    this.editId = editId;
   }
 
   public String getType() {

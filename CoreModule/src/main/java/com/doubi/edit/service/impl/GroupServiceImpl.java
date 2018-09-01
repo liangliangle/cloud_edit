@@ -1,6 +1,7 @@
 package com.doubi.edit.service.impl;
 
 import com.doubi.edit.common.exception.ServiceException;
+import com.doubi.edit.common.interceptor.HttpContext;
 import com.doubi.edit.common.utils.BeanUtils;
 import com.doubi.edit.dao.GroupDAO;
 import com.doubi.edit.dao.GroupUserDAO;
@@ -14,7 +15,6 @@ import com.doubi.edit.entity.GroupEntity;
 import com.doubi.edit.entity.GroupUserEntity;
 import com.doubi.edit.enums.GroupTypeEnum;
 import com.doubi.edit.enums.GroupUserTypeEnum;
-import com.doubi.edit.interceptor.HttpContext;
 import com.doubi.edit.service.GroupService;
 import com.doubi.edit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,7 +126,7 @@ public class GroupServiceImpl implements GroupService {
     GroupEntity group = groupDAO.selectById(dto.getGroupId());
     checkRole(group, true);
     List<GroupUserEntity> userEntities = groupUserDAO.getByUserIdAndGroupId(dto.getUserId(), dto
-      .getGroupId());
+            .getGroupId());
     for (GroupUserEntity entity : userEntities) {
       if (entity.getStatus().equals(1)) {
         throw new ServiceException("用户已经加入小组");

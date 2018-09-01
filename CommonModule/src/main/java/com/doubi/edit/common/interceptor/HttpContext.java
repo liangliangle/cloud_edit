@@ -1,4 +1,4 @@
-package com.doubi.edit.interceptor;
+package com.doubi.edit.common.interceptor;
 
 /**
  * 保存请求的上下文.

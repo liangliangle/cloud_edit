@@ -2,7 +2,6 @@ package com.doubi.edit.dto.result;
 
 import com.doubi.edit.dto.result.base.GroupDto;
 import com.doubi.edit.dto.result.base.GroupUserDto;
-import com.doubi.edit.dto.result.base.UserDto;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.doubi.edit.interceptor;
+package com.doubi.edit.common.interceptor;
 
 import com.doubi.edit.common.exception.*;
 import org.slf4j.Logger;

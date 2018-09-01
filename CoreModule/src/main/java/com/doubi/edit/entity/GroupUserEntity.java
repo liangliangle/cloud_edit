@@ -27,7 +27,6 @@ public class GroupUserEntity extends BaseEntity {
   private String userName;
 
 
-
   /**
    * 状态
    */

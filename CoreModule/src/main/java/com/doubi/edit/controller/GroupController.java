@@ -5,7 +5,6 @@ import com.doubi.edit.dto.create.GroupCreateDto;
 import com.doubi.edit.dto.create.GroupUserCreateDto;
 import com.doubi.edit.dto.result.GroupDetailDto;
 import com.doubi.edit.dto.result.base.GroupDto;
-import com.doubi.edit.dto.result.base.GroupUserDto;
 import com.doubi.edit.service.GroupService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

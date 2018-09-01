@@ -10,10 +10,7 @@ import com.doubi.edit.common.dto.BaseDto;
 public class EditLogDto extends BaseDto {
 
 
-  /**
-   * 正文
-   */
-  private String content;
+  private Long infoId;
 
   /**
    * 类型
@@ -22,13 +19,12 @@ public class EditLogDto extends BaseDto {
 
   private Integer status;
 
-
-  public String getContent() {
-    return content;
+  public Long getInfoId() {
+    return infoId;
   }
 
-  public void setContent(String content) {
-    this.content = content;
+  public void setInfoId(Long infoId) {
+    this.infoId = infoId;
   }
 
   public String getType() {
