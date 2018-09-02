@@ -41,21 +41,21 @@ public class EditController extends BaseController {
   public PageDto getLog(@PathVariable("id") Long id,
                         @RequestParam(value = "page", required = false, defaultValue = "1") int page,
                         @RequestParam(value = "row", defaultValue = "10", required = false) int row) {
-    //todo
+    //todo 查看笔记修改日志
     return null;
   }
 
   @GetMapping("log/detail/{id}")
   @ApiOperation("查看日志，日志ID")
   public EditDetailDto getLogDetail(@PathVariable("id") Long id) {
-    //todo
+    //todo 查看笔记日志详情
     return null;
   }
 
   @GetMapping("share/{id}")
   @ApiOperation("分享笔记")
   public ShareDto share(@PathVariable("id") Long id, @RequestParam("encry") boolean encry) {
-    //todo
+    //todo 分享笔记
     return null;
   }
 

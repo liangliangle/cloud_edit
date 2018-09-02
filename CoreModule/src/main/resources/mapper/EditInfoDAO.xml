@@ -17,7 +17,7 @@
         select
         <include refid="Base_Column_List"/>
         from e_edit_info
-        where edit_id = #{id,jdbcType=BIGINT} where status=1
+        where edit_id = #{id,jdbcType=BIGINT} and status=1
     </select>
     <select id="getAllByEditId" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
@@ -38,7 +38,7 @@
   </update>
     <update id="deleteByEditId" parameterType="java.lang.Long">
     update e_edit_info set status=0
-    where edit_id = #{editId,jdbcType=BIGINT} where status =1
+    where edit_id = #{editId,jdbcType=BIGINT} and status =1
   </update>
 
     <insert id="insert" parameterType="com.doubi.edit.entity.EditInfoEntity" useGeneratedKeys="true" keyProperty="id">

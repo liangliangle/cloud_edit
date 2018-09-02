@@ -65,7 +65,7 @@ public class GroupController extends BaseController {
   @PutMapping("{id}")
   @ApiOperation("同意或拒绝加入小组")
   public void submitToGroup(@PathVariable("id") Long id, @RequestParam("status") Boolean status) {
-    //TODO
+    //TODO  同意或拒绝加入小组
   }
 
 }

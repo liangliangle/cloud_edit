@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ContextInitInterceptor implements HandlerInterceptor {
   @Autowired
-  private JwtAuthenticationServiceImpl jwtAuthenticationService;
+  private JwtAuthenticationServiceImpl jwtAuthenticationService = new JwtAuthenticationServiceImpl();
 
   private static Logger logger = LoggerFactory.getLogger(ContextInitInterceptor.class);
 
@@ -33,7 +33,7 @@ public class ContextInitInterceptor implements HandlerInterceptor {
                            HttpServletResponse response, Object o) throws Exception {
     String requestUri = request.getRequestURI();
     logger.info("请求开始：" + requestUri);
-    if (!"get".equals(request.getMethod().toLowerCase()) && requestUri.contentEquals
+    if ("get".equals(request.getMethod().toLowerCase()) && requestUri.contentEquals
             ("/api/user/login")) {
       return true;
     }
@@ -41,7 +41,7 @@ public class ContextInitInterceptor implements HandlerInterceptor {
       return true;
     }
     try {
-      String token = request.getHeader("Authorization");
+      String token = request.getHeader("authorization");
       EditJwtModel model = jwtAuthenticationService.customizedValidation(token);
       HttpContext.getContext().setDeviceType(model.getDeviceType());
       HttpContext.getContext().setToken(token);
@@ -49,6 +49,7 @@ public class ContextInitInterceptor implements HandlerInterceptor {
       HttpContext.getContext().setUserName(model.getUserName());
       return true;
     } catch (Exception e) {
+      logger.info("登录失败：", e);
       throw new AuthorizationException("请登录!");
     }
   }

@@ -36,7 +36,7 @@ public class JwtAuthenticationServiceImpl {
   private final Logger logger = LoggerFactory.getLogger(RsaKeyConfig.class);
 
   @Autowired
-  RsaJsonWebKey rsaJsonWebKey;
+  RsaJsonWebKey rsaJsonWebKey = new RsaKeyConfig().getRsaJsonWebKey();
 
   /**
    * 生成token.
@@ -115,6 +115,7 @@ public class JwtAuthenticationServiceImpl {
    * 校验.
    */
   public EditJwtModel customizedValidation(String jwt) {
+
     EditJwtModel massJwtModel = getMassJwtModel(jwt);
     if (massJwtModel == null) {
       logger.error("not found the authorized object or the authorization has been expiration!");

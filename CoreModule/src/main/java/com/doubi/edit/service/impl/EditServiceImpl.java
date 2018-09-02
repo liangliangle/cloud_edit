@@ -3,6 +3,7 @@ package com.doubi.edit.service.impl;
 import com.doubi.edit.common.dto.PageDto;
 import com.doubi.edit.common.exception.ServiceException;
 import com.doubi.edit.common.interceptor.HttpContext;
+import com.doubi.edit.common.utils.BeanUtils;
 import com.doubi.edit.dao.EditDAO;
 import com.doubi.edit.dao.EditInfoDAO;
 import com.doubi.edit.dao.EditLogDAO;
@@ -74,22 +75,36 @@ public class EditServiceImpl implements EditService {
 
   @Override
   public EditDetailDto getById(Long id) {
-    //todo
+    Long userId = HttpContext.getContext().getUserId();
+    String userName = HttpContext.getContext().getUserName();
+    EditEntity entity = editDAO.selectById(id);
+    if (null == entity) {
+      throw new ServiceException("未找到笔记");
+    }
+    if (!entity.getUserId().equals(userId)) {
+      throw new ServiceException("未找到笔记");
+    }
+    EditDetailDto detailDto = BeanUtils.entityToDto(entity, EditDetailDto.class);
+    EditInfoEntity infoEntity = infoDAO.getByEditId(id);
+    detailDto.setContent(infoEntity.getInfo());
+    return detailDto;
+  }
+
+  @Override
+  public PageDto getLog(Long id, int page, int row) {
+    //todo 查看笔记修改日志
     return null;
   }
 
   @Override
-  public PageDto getLog(Long id, int page, int row) {//todo
+  public ShareDto share(Long id, boolean encry) {
+    //todo 分享笔记
     return null;
   }
 
   @Override
-  public ShareDto share(Long id, boolean encry) {//todo
-    return null;
-  }
-
-  @Override
-  public EditDetailDto getLogDetail(Long id) {//todo
+  public EditDetailDto getLogDetail(Long id) {
+    //todo 获取笔记日志详情
     return null;
   }
 
@@ -97,6 +112,7 @@ public class EditServiceImpl implements EditService {
   private void insert(Long editId, String content) {
     logger.info("editId:{},content:{}", editId, content);
     EditInfoEntity oldInfo = infoDAO.getByEditId(editId);
+    infoDAO.deleteByEditId(editId);
     LogTypeEnum type = LogTypeEnum.CREATE;
     EditInfoEntity infoEntity = new EditInfoEntity();
     infoEntity.setEditId(editId);
@@ -109,8 +125,8 @@ public class EditServiceImpl implements EditService {
     if (null != oldInfo) {
       type = LogTypeEnum.UPDATE;
       infoId = oldInfo.getId();
-      saveLog(editId, type, infoId);
     }
+    saveLog(editId, type, infoId);
   }
 
   private void saveLog(Long editId, LogTypeEnum type, Long infoId) {
@@ -122,6 +138,7 @@ public class EditServiceImpl implements EditService {
     logEntity.setStatus(1);
     logEntity.buildDefaultTimeStamp();
     logDAO.insert(logEntity);
-
   }
+
+
 }

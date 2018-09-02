@@ -60,7 +60,7 @@ public class RsaKeyConfig {
    * 不知道干嘛用.
    */
   @Bean
-  public RsaJsonWebKey rsaJsonWebKey() {
+  public RsaJsonWebKey getRsaJsonWebKey() {
     RsaJsonWebKey rsaJsonWebKey = null;
     try {
       RSAPublicKey publicKey = getPublicKey(readByteArrayFromBase64String(publicKeyBase64));

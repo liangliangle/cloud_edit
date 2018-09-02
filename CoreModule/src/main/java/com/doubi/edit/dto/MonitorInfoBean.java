@@ -2,7 +2,6 @@ package com.doubi.edit.dto;
 
 /**
  * @ClessName MonitorInfoBean
- * @Desc TODO
  * @Author liangliang
  * @Date 2018/8/31 16:10
  * @Version 1.0

@@ -9,7 +9,6 @@ import java.lang.management.ManagementFactory;
 
 /**
  * @ClessName MonitorServiceImpl
- * @Desc TODO
  * @Author liangliang
  * @Date 2018/8/31 16:11
  * @Version 1.0
