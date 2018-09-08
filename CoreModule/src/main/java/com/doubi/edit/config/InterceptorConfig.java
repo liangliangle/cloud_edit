@@ -4,6 +4,7 @@ import com.doubi.edit.common.interceptor.ContextInitInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
@@ -18,7 +19,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 public class InterceptorConfig extends WebMvcConfigurationSupport {
 
   private Logger logger = LoggerFactory.getLogger(InterceptorConfig.class);
+  static final String ORIGINS[] = new String[]{"GET", "POST", "PUT", "DELETE"};
 
+  @Override
+  protected void addCorsMappings(CorsRegistry registry) {
+    registry.addMapping("/**").allowedOrigins("*").allowCredentials(true).allowedMethods(ORIGINS)
+            .maxAge(3600);
+  }
 
   @Override
   public void addInterceptors(InterceptorRegistry registry) {

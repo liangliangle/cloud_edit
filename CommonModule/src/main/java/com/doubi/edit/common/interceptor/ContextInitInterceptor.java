@@ -32,8 +32,8 @@ public class ContextInitInterceptor implements HandlerInterceptor {
   public boolean preHandle(HttpServletRequest request,
                            HttpServletResponse response, Object o) throws Exception {
     String requestUri = request.getRequestURI();
-    logger.info("请求开始：" + requestUri);
-    if ("get".equals(request.getMethod().toLowerCase()) && requestUri.contentEquals
+    logger.info("请求开始：" + request.getMethod() + "   " + requestUri);
+    if (requestUri.contentEquals
             ("/api/user/login")) {
       return true;
     }
