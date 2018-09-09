@@ -13,7 +13,7 @@
         <result column="status" jdbcType="INTEGER" property="status"/>
     </resultMap>
     <sql id="Base_Column_List">
-    Id, create_time, last_update_time, name, email, phone, secret, status
+    Id, create_time, last_update_time, name, email, phone, secret,password, status
   </sql>
     <select id="selectByUser" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
