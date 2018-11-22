@@ -19,7 +19,7 @@
         <fastjson.version>1.2.7</fastjson.version>
         <greenplum.version>1.0</greenplum.version>
         <postgresql.version>9.4.1212</postgresql.version>
-        <mysql-connector-java.version>6.0.6</mysql-connector-java.version>
+        <mysql-connector-java.version>8.0.13</mysql-connector-java.version>
         <commons-dbutils.version>1.6</commons-dbutils.version>
         <c3p0.version>0.9.5.2</c3p0.version>
         <junit.version>4.12</junit.version>

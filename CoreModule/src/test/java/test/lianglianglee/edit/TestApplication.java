@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
-@ComponentScan(basePackages = {"com.doubi"})
-@MapperScan("com.doubi.edit.dao")
+@ComponentScan(basePackages = {"com.lianglianglee.common","com.lianglianglee.edit"})
+@MapperScan("com.lianglianglee.edit.dao")
 public class TestApplication {
 
   /**

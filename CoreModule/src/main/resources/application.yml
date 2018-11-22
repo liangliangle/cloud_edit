@@ -8,14 +8,8 @@ spring:
     username: @db.user@
     password: @db.password@
     driver-class-name: com.mysql.cj.jdbc.Driver
-  devtools:
-    restart:
-      enabled: true
-    livereload:
-      enabled: true
-
 mybatis:
-  typeAliasesPackage: com.doubi.edit.entity
+  typeAliasesPackage: com.lianglianglee.edit.entity
   mapperLocations: classpath:mapper/*.xml
   configuration:
     use-generated-keys: true
@@ -23,7 +17,7 @@ logging:
   file: ./edit/log.log
   level:
     root: info
-    com.doubi.edit.dao: debug
+    com.lianglianglee.edit.dao: debug
 
 oss:
   accessKeyId: @oss.accessKeyId@

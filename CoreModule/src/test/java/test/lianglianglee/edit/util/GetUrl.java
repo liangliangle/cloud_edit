@@ -1,8 +1,8 @@
 package test.lianglianglee.edit.util;
 
-import com.doubi.edit.common.utils.BeanUtils;
-import com.doubi.edit.dto.result.base.UserDto;
-import com.doubi.edit.entity.UserEntity;
+import com.liangliagnlee.common.utils.BeanUtils;
+import com.lianglianglee.edit.dto.result.base.UserDto;
+import com.lianglianglee.edit.entity.UserEntity;
 
 /**
  * Created by SJG on 2015/11/18.
