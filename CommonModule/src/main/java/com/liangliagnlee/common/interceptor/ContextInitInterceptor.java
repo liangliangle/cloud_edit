@@ -34,10 +34,10 @@ public class ContextInitInterceptor implements HandlerInterceptor {
     String requestUri = request.getRequestURI();
     logger.info("请求开始：" + request.getMethod() + "   " + requestUri);
     if (requestUri.contentEquals
-            ("/api/user/login")) {
+      ("/api/user/login")) {
       return true;
     }
-    if("options".equals(request.getMethod().toLowerCase())){
+    if ("options".equals(request.getMethod().toLowerCase())) {
       return true;
     }
     if ("post".equals(request.getMethod().toLowerCase()) && requestUri.equals("/api/user")) {
@@ -53,14 +53,17 @@ public class ContextInitInterceptor implements HandlerInterceptor {
       return true;
     } catch (Exception e) {
       logger.info("登录失败：", e);
-      throw new AuthorizationException("请登录!");
+      response.setHeader("Access-Control-Allow-Origin", "*");
+      response.setStatus(401);
+      response.flushBuffer();
+      return false;
     }
   }
 
   @Override
   public void postHandle(HttpServletRequest httpServletRequest,
                          HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView)
-          throws Exception {
+    throws Exception {
 
   }
 }

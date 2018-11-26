@@ -1,20 +1,24 @@
 package org.lianglianglee.oss.entity;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
+
 /**
  * Oss 配置.
  *
  * @author liangliang
  * @date 2018年4月23日.
  */
+@Configuration
+@Component
+@ConfigurationProperties(prefix = "oss")
 public class OssConfig {
 
   private String accessKeyId;
-
   private String accessKeySecret;
-
   private String endpoint;
   private String bucketName;
-
 
   public String getAccessKeyId() {
     return accessKeyId;

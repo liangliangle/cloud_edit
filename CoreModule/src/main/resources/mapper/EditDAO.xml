@@ -53,12 +53,9 @@
     update e_edit
     set
       last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
-      user_id = #{userId,jdbcType=BIGINT},
       title=#{title},
       group_id = #{groupId,jdbcType=BIGINT},
-      user_name = #{userName,jdbcType=VARCHAR},
       parent_id = #{parentId,jdbcType=BIGINT},
-      status = #{status,jdbcType=INTEGER}
     where Id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

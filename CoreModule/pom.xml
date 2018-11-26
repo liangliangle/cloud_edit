@@ -30,7 +30,7 @@
         <db.url>jdbc:mysql://localhost:3306/cloud_edit?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC&amp;useSSL=false</db.url>
         <db.user>root</db.user>
         <db.password>root</db.password>
-        <oss.accessKeyId>LTAI18U1fxOpED</oss.accessKeyId>
+        <oss.accessKeyId>root</oss.accessKeyId>
         <oss.accessKeySecret>uwrhEbfYytDZXwuX7gUhfxv2NYc</oss.accessKeySecret>
         <oss.endpoint>oss-cn-beijing.aliyuncs.com</oss.endpoint>
         <oss.bucketName>zut-mass</oss.bucketName>
