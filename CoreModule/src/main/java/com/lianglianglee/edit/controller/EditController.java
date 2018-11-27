@@ -1,6 +1,7 @@
 package com.lianglianglee.edit.controller;
 
 import com.liangliagnlee.common.dto.PageDto;
+import com.liangliagnlee.common.utils.Check;
 import com.lianglianglee.edit.dto.create.EditCreateDto;
 import com.lianglianglee.edit.dto.result.EditDetailDto;
 import com.lianglianglee.edit.dto.result.ShareDto;
@@ -24,12 +25,14 @@ public class EditController  {
   @PostMapping("")
   @ApiOperation("创建笔记")
   public void createEdit(@RequestBody EditCreateDto dto) {
+    Check.check(dto);
     editService.createEdit(dto);
   }
 
   @PutMapping("{id}")
   @ApiOperation("修改笔记")
   public void updateEdit(@RequestBody EditCreateDto dto, @PathVariable("id") Long id) {
+    Check.check(dto);
     editService.updateEdit(dto, id);
   }
 

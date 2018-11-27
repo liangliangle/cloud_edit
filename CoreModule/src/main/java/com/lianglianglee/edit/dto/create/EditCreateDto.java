@@ -1,23 +1,26 @@
 package com.lianglianglee.edit.dto.create;
 
+import com.liangliagnlee.common.utils.Validation;
 import io.swagger.annotations.ApiModelProperty;
 
 public class EditCreateDto {
 
-
+  @Validation(notNull = true)
   private String title;
   /**
    * 小组ID
    */
+  @Validation(notNull = true)
   @ApiModelProperty("小组ID")
   private Long groupId;
 
   /**
    * 父ID
    */
+  @Validation(notNull = true)
   @ApiModelProperty("父页面ID")
   private Long parentId;
-
+  @Validation(notNull = true)
   @ApiModelProperty("正文")
   private String content;
 

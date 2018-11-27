@@ -1,19 +1,22 @@
 package com.lianglianglee.edit.dto.create;
 
 import com.liangliagnlee.common.dto.BaseDto;
+import com.liangliagnlee.common.utils.Validation;
 import io.swagger.annotations.ApiModelProperty;
 
 public class GroupCreateDto extends BaseDto {
 
-
+  @Validation(notNull = true)
   @ApiModelProperty("小组名称")
   private String name;
 
   /**
    * 公开/私有
    */
+  @Validation(notNull = true)
   @ApiModelProperty("小组类型，private,public")
   private String type;
+  @Validation(notNull = true)
   @ApiModelProperty("创建人")
   private Long userId;
   @ApiModelProperty("用户名")

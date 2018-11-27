@@ -64,11 +64,10 @@ public class EditService {
     if (!entity.getUserId().equals(userId)) {
       throw new ServiceException("未找到笔记");
     }
-    if (!entity.getParentId().equals(dto.getParentId())) {
-      entity.setParentId(dto.getParentId());
-      entity.buildDefaultLastTime();
-      editDAO.updateById(entity);
-    }
+    entity.setTitle(dto.getTitle());
+    entity.setParentId(dto.getParentId());
+    entity.buildDefaultLastTime();
+    editDAO.updateById(entity);
     EditInfoEntity infoEntity = infoDAO.getByEditId(id);
     if (infoEntity.getInfo() == null || !infoEntity.getInfo().equals(dto.getContent())) {
       insert(id, dto.getContent());
@@ -78,7 +77,6 @@ public class EditService {
 
   public EditDetailDto getById(Long id) {
     Long userId = HttpContext.getContext().getUserId();
-    String userName = HttpContext.getContext().getUserName();
     EditEntity entity = editDAO.selectById(id);
     if (null == entity) {
       throw new ServiceException("未找到笔记");

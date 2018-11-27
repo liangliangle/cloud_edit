@@ -31,6 +31,8 @@ public class EditDetailDto extends BaseDto {
   @ApiModelProperty("用户名")
   private String userName;
 
+  private String title;
+
   /**
    * 父ID
    */
@@ -44,6 +46,14 @@ public class EditDetailDto extends BaseDto {
   private Integer status;
   @ApiModelProperty("正文")
   private String content;
+
+  public String getTitle() {
+    return title;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
   public Long getUserId() {
     return userId;

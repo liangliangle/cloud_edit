@@ -1,6 +1,7 @@
 package com.lianglianglee.edit.dto.create;
 
 import com.liangliagnlee.common.dto.BaseDto;
+import com.liangliagnlee.common.utils.Validation;
 import io.swagger.annotations.ApiModelProperty;
 
 public class UserCreateDto extends BaseDto {
@@ -8,16 +9,20 @@ public class UserCreateDto extends BaseDto {
   /**
    * 用户名
    */
+  @Validation(notNull = true)
   @ApiModelProperty("用户名称")
   private String name;
 
   /**
    * 邮箱
    */
+  @Validation(notNull = true)
   @ApiModelProperty("密码")
   private String password;
+  @Validation(notNull = true)
   @ApiModelProperty("邮箱")
   private String email;
+  @Validation(notNull = true)
   @ApiModelProperty("手机号")
   private String phone;
 

@@ -1,6 +1,7 @@
 package com.lianglianglee.edit.controller;
 
 import com.liangliagnlee.common.interceptor.HttpContext;
+import com.liangliagnlee.common.utils.Check;
 import com.lianglianglee.edit.dto.create.GroupCreateDto;
 import com.lianglianglee.edit.dto.create.GroupUserCreateDto;
 import com.lianglianglee.edit.dto.result.GroupDetailDto;
@@ -30,12 +31,14 @@ public class GroupController  {
   public void create(@RequestBody GroupCreateDto dto) {
     dto.setUserName(HttpContext.getContext().getUserName());
     dto.setUserId(HttpContext.getContext().getUserId());
+    Check.check(dto);
     groupService.insert(dto);
   }
 
   @GetMapping("{id}")
   @ApiOperation("获取小组详情")
   public GroupDetailDto getById(@PathVariable("id") Long id) {
+
     return groupService.getById(id);
   }
 
@@ -48,6 +51,7 @@ public class GroupController  {
   @PutMapping("rename/{id}")
   @ApiOperation("修改小组信息")
   public void update(@RequestParam("newName") String newName, @PathVariable("id") Long id) {
+
     groupService.update(newName, id);
 
   }
