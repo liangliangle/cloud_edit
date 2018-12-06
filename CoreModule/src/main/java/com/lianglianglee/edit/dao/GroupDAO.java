@@ -2,6 +2,7 @@ package com.lianglianglee.edit.dao;
 
 import com.lianglianglee.edit.entity.GroupEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -11,6 +12,8 @@ import java.util.List;
 @Mapper
 public interface GroupDAO {
   GroupEntity selectById(Long id);
+
+  List<GroupEntity> getByIds(@Param("ids") List<Long> ids);
 
   int deleteById(Long id);
 

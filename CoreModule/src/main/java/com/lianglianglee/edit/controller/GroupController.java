@@ -4,8 +4,8 @@ import com.liangliagnlee.common.interceptor.HttpContext;
 import com.liangliagnlee.common.utils.Check;
 import com.lianglianglee.edit.dto.create.GroupCreateDto;
 import com.lianglianglee.edit.dto.create.GroupUserCreateDto;
-import com.lianglianglee.edit.dto.result.GroupDetailDto;
 import com.lianglianglee.edit.dto.result.base.GroupDto;
+import com.lianglianglee.edit.dto.result.base.GroupUserDto;
 import com.lianglianglee.edit.service.GroupService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,8 +37,7 @@ public class GroupController  {
 
   @GetMapping("{id}")
   @ApiOperation("获取小组详情")
-  public GroupDetailDto getById(@PathVariable("id") Long id) {
-
+  public GroupDto getById(@PathVariable("id") Long id) {
     return groupService.getById(id);
   }
 
@@ -48,12 +47,18 @@ public class GroupController  {
     return groupService.getByUser(userId);
   }
 
-  @PutMapping("rename/{id}")
+
+  @PutMapping("/{id}")
   @ApiOperation("修改小组信息")
-  public void update(@RequestParam("newName") String newName, @PathVariable("id") Long id) {
+  public void update(@RequestBody GroupCreateDto dto, @PathVariable("id") Long id) {
+    groupService.update(dto, id);
+  }
 
-    groupService.update(newName, id);
 
+  @GetMapping("{id}/user")
+  @ApiOperation("获取小组用户")
+  public List<GroupUserDto> update(@PathVariable("id") Long id) {
+    return groupService.getUsers(id);
   }
 
   @PutMapping("convey/{id}")
@@ -62,16 +67,17 @@ public class GroupController  {
     groupService.conveyGroup(id, userId);
   }
 
-  @PostMapping("user")
-  @ApiOperation("邀请用户到小组")
-  public void addUserByGroup(@RequestBody GroupUserCreateDto dto) {
-    groupService.addUserByGroup(dto);
+
+  @DeleteMapping("/{id}/user/{userId}")
+  @ApiOperation("转让小组")
+  public void removeUser(@PathVariable("id") Long id, @PathVariable("userId") Long userId) {
+    groupService.removeUser(id, userId);
   }
 
-  @PutMapping("{id}")
-  @ApiOperation("同意或拒绝加入小组")
-  public void submitToGroup(@PathVariable("id") Long id, @RequestParam("status") Boolean status) {
-    //TODO  同意或拒绝加入小组
+  @PostMapping("user")
+  @ApiOperation("邀请用户到小组")
+  public void addUser(@RequestBody GroupUserCreateDto dto) {
+    groupService.addUserByGroup(dto);
   }
 
 }

@@ -7,7 +7,6 @@ import com.lianglianglee.edit.dao.GroupDAO;
 import com.lianglianglee.edit.dao.GroupUserDAO;
 import com.lianglianglee.edit.dto.create.GroupCreateDto;
 import com.lianglianglee.edit.dto.create.GroupUserCreateDto;
-import com.lianglianglee.edit.dto.result.GroupDetailDto;
 import com.lianglianglee.edit.dto.result.base.GroupDto;
 import com.lianglianglee.edit.dto.result.base.GroupUserDto;
 import com.lianglianglee.edit.dto.result.base.UserDto;
@@ -21,9 +20,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-public class GroupService  {
+public class GroupService {
 
   @Autowired
   private GroupDAO groupDAO;
@@ -32,7 +32,7 @@ public class GroupService  {
   @Autowired
   private UserService userService;
 
-  
+
   @Transactional(rollbackFor = ServiceException.class)
   public void insert(GroupCreateDto dto) {
     GroupEntity groupEntity = BeanUtils.dtoToEntity(dto, GroupEntity.class);
@@ -49,40 +49,38 @@ public class GroupService  {
     groupUserDAO.insert(entity);
   }
 
-  
-  public void update(String newName, Long id) {
+
+  public void update(GroupCreateDto dto, Long id) {
     GroupEntity entity = groupDAO.selectById(id);
     checkRole(entity, true);
     entity.buildDefaultLastTime();
-    entity.setName(newName);
+    entity.setName(dto.getName());
+    entity.setType(dto.getType());
+    //todo 私有相关逻辑
     groupDAO.updateById(entity);
   }
 
-  
+
   public void delete(Long id) {
     GroupEntity entity = groupDAO.selectById(id);
     checkRole(entity, true);
     groupDAO.deleteById(id);
   }
 
-  
-  public GroupDetailDto getById(Long id) {
+
+  public GroupDto getById(Long id) {
     GroupEntity entity = groupDAO.selectById(id);
     checkRole(entity, false);
     List<GroupUserEntity> userEntities = groupUserDAO.getByGroupId(id);
-    GroupDetailDto detailDto = new GroupDetailDto();
-    detailDto.setDto(BeanUtils.entityToDto(entity, GroupDto.class));
-    List<GroupUserDto> dtos = new ArrayList<GroupUserDto>(userEntities.size());
-    for (GroupUserEntity user : userEntities) {
-      dtos.add(BeanUtils.entityToDto(user, GroupUserDto.class));
-    }
-    detailDto.setUsers(dtos);
-    return detailDto;
+    return BeanUtils.entityToDto(entity, GroupDto.class);
+
   }
 
-  
+
   public List<GroupDto> getByUser(Long userId) {
-    List<GroupEntity> entities = groupDAO.getByUserId(userId);
+    List<GroupUserEntity> groupUsers = groupUserDAO.getByUserId(userId);
+    List<Long> ids = groupUsers.stream().map(GroupUserEntity::getGroupId).collect(Collectors.toList());
+    List<GroupEntity> entities = groupDAO.getByIds(ids);
     List<GroupDto> dtos = new ArrayList<>(entities.size());
     for (GroupEntity entity : entities) {
       dtos.add(BeanUtils.entityToDto(entity, GroupDto.class));
@@ -90,7 +88,7 @@ public class GroupService  {
     return dtos;
   }
 
-  
+
   @Transactional(rollbackFor = ServiceException.class)
   public void conveyGroup(Long id, Long userId) {
     GroupEntity entity = groupDAO.selectById(id);
@@ -119,24 +117,21 @@ public class GroupService  {
     groupDAO.updateById(entity);
   }
 
-  
+
   public void addUserByGroup(GroupUserCreateDto dto) {
     GroupEntity group = groupDAO.selectById(dto.getGroupId());
     checkRole(group, true);
     List<GroupUserEntity> userEntities = groupUserDAO.getByUserIdAndGroupId(dto.getUserId(), dto
-            .getGroupId());
+      .getGroupId());
     for (GroupUserEntity entity : userEntities) {
       if (entity.getStatus().equals(1)) {
         throw new ServiceException("用户已经加入小组");
-      }
-      if (entity.getStatus().equals(2)) {
-        throw new ServiceException("邀请已发出，不可重复邀请");
       }
     }
     GroupUserEntity userEntity = new GroupUserEntity();
     userEntity.setType(GroupUserTypeEnum.MEMBER.getType());
     userEntity.setGroupId(dto.getGroupId());
-    userEntity.setStatus(2);
+    userEntity.setStatus(1);
     userEntity.setUserId(dto.getUserId());
     UserDto user = userService.getById(dto.getUserId());
     if (null == user) {
@@ -157,6 +152,30 @@ public class GroupService  {
     if (update && entity.getName().equals("默认笔记")) {
       throw new ServiceException("默认笔记不允许操作");
     }
+  }
+
+  public List<GroupUserDto> getUsers(Long id) {
+    List<GroupUserEntity> userEntities = groupUserDAO.getByGroupId(id);
+    List<GroupUserDto> dtos = new ArrayList<GroupUserDto>(userEntities.size());
+    for (GroupUserEntity user : userEntities) {
+      dtos.add(BeanUtils.entityToDto(user, GroupUserDto.class));
+    }
+    return dtos;
+  }
+
+  public void removeUser(Long id, Long userId) {
+    groupUserDAO.removeByUserIdAndGroupId(userId, id);
+  }
+
+  public void submitToGroup(Long id, Boolean status) {
+    GroupUserEntity entity = groupUserDAO.selectById(id);
+    if (status) {
+      entity.setStatus(1);
+    } else {
+      entity.setStatus(0);
+    }
+    entity.buildDefaultLastTime();
+    groupUserDAO.updateById(entity);
   }
 
 }

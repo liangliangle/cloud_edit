@@ -22,7 +22,16 @@
         where id = #{id,jdbcType=BIGINT} and status=1
     </select>
 
-
+  <select id="getByIds"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from u_group
+    where id in
+    <foreach item="item" index="index" collection="ids"
+                          open="(" separator="," close=")">
+    #{item}
+  </foreach>
+  </select>
     <select id="getByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>

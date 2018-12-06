@@ -19,6 +19,8 @@ public class GroupUserDto extends BaseDto {
    */
   private Long groupId;
 
+  private String userName;
+
   /**
    * 类型
    */
@@ -29,6 +31,13 @@ public class GroupUserDto extends BaseDto {
    */
   private Integer status;
 
+  public String getUserName() {
+    return userName;
+  }
+
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
 
   public Long getUserId() {
     return userId;

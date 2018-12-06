@@ -58,7 +58,7 @@ public class EditService {
   public void updateEdit(EditCreateDto dto, Long id) {
     Long userId = HttpContext.getContext().getUserId();
     String userName = HttpContext.getContext().getUserName();
-    logger.info("update:userId:{},parentId:{},content:{}", userId, dto.getParentId(), dto.getContent());
+    logger.info("update:userId:{},parentId:{}", userId, dto.getParentId());
     EditEntity entity = editDAO.selectById(id);
     //todo  请注意小组成员也可以修改
     if (!entity.getUserId().equals(userId)) {

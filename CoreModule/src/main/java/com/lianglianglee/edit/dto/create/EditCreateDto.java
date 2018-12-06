@@ -20,7 +20,7 @@ public class EditCreateDto {
   @Validation(notNull = true)
   @ApiModelProperty("父页面ID")
   private Long parentId;
-  @Validation(notNull = true)
+  //@Validation(notNull = true)
   @ApiModelProperty("正文")
   private String content;
 
