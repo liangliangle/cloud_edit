@@ -148,8 +148,9 @@ public class EditService {
   }
 
   private void getByGroup(List<EditDto> dtos) {
-    dtos.forEach(dto -> {
+    for (EditDto dto : dtos) {
       dto.setChildren(editDAO.getByGroup(dto.getGroupId(), dto.getId()));
-    });
+      getByGroup(dto.getChildren());
+    }
   }
 }
