@@ -32,15 +32,15 @@ import java.security.SecureRandom;
 public class GoogleAuthenticator {
 
   // taken from Google pam docs - we probably don't need to mess with these
-  public static final int SECRET_SIZE = 10;
+  private static final int SECRET_SIZE = 10;
 
-  public static final String SEED = "g8GjEvTbW5oVSV7avLBdwIHqGlUYNzKFI7izOF8GwLDVKs2m0QN7vxRs2im5MDaNCWGmcD2rvcZx";
+  private static final String SEED = "g8GjEvTbW5oVSV7avLBdwIHqGlUYNzKFI7izOF8GwLDVKs2m0QN7vxRs2im5MDaNCWGmcD2rvcZx";
 
-  public static final String RANDOM_NUMBER_ALGORITHM = "SHA1PRNG";
+  private static final String RANDOM_NUMBER_ALGORITHM = "SHA1PRNG";
 
   private static Logger logger = Logger.getLogger(GoogleAuthenticator.class);
 
-  int window_size = 3; // default 3 - max 17 (from google docs)最多可偏移的时间
+  private static int window_size = 3; // default 3 - max 17 (from google docs)最多可偏移的时间
 
   public void setWindowSize(int s) {
     if (s >= 1 && s <= 17)
@@ -54,7 +54,7 @@ public class GoogleAuthenticator {
     long code = Long.parseLong(codes);
     long t = System.currentTimeMillis();
     GoogleAuthenticator ga = new GoogleAuthenticator();
-    ga.setWindowSize(15); // should give 5 * 30 seconds of grace...
+    ga.setWindowSize(window_size); // should give 5 * 30 seconds of grace...
     boolean r = ga.check_code(savedSecret, code, t);
     return r;
   }
@@ -63,7 +63,7 @@ public class GoogleAuthenticator {
   public static String getUrl(String secret, String name) {
     // TODO 笔记名称
     return GoogleAuthenticator.getQRBarcodeURL(name,
-            "云笔记", secret);
+      "云笔记", secret);
   }
 
   public static String generateSecretKey() {
@@ -84,8 +84,7 @@ public class GoogleAuthenticator {
 
 
   public static String getQRBarcodeURL(String user, String host, String secret) {
-    String format = "otpauth://totp/%s@%s%?secret=%s";
-    return String.format(format, user, host, secret);
+    return "otpauth://totp/" + user + ":" + host + "?secret=" + secret;
   }
 
 
@@ -141,8 +140,11 @@ public class GoogleAuthenticator {
   }
 
   public static void main(String args[]) {
-    // logger.info(GoogleAuthenticator.genSecret());
-    logger.info(GoogleAuthenticator.authcode("190170", "VV4QTVEQNYTEZ5J2"));
+    //String key = GoogleAuthenticator.generateSecretKey();
+    //logger.info(GoogleAuthenticator.getUrl(key, "liangliang"));
+    logger.info(System.currentTimeMillis());
+    logger.info(GoogleAuthenticator.authcode("337570", "MSIZ34OR6BFXWMGT"));
+    logger.info(System.currentTimeMillis());
   }
 }
 
