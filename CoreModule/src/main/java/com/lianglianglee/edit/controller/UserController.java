@@ -31,7 +31,7 @@ public class UserController {
     String[] auths = auth.split(" ");
     if (auths.length == 2) {
       return userService.login(auths[0], auths[1]);
-    }else{
+    } else {
       return userService.reload(auth);
     }
   }

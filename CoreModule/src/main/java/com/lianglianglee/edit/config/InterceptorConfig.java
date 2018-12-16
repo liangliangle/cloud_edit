@@ -23,10 +23,10 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
   @Override
   protected void addCorsMappings(CorsRegistry registry) {
     registry.addMapping("/**")
-            //这里有问题
-            .allowedOrigins("*")
-            .allowedMethods("POST", "GET", "PUT", "OPTIONS", "DELETE")
-            .allowCredentials(true);
+      //这里有问题
+      .allowedOrigins("*")
+      .allowedMethods("POST", "GET", "PUT", "OPTIONS", "DELETE")
+      .allowCredentials(true);
 
   }
 
@@ -40,9 +40,9 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
   @Override
   protected void addResourceHandlers(ResourceHandlerRegistry registry) {
     registry.addResourceHandler("swagger-ui.html")
-            .addResourceLocations("classpath:/META-INF/resources/");
+      .addResourceLocations("classpath:/META-INF/resources/");
 
     registry.addResourceHandler("/webjars/**")
-            .addResourceLocations("classpath:/META-INF/resources/webjars/");
+      .addResourceLocations("classpath:/META-INF/resources/webjars/");
   }
 }

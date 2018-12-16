@@ -35,7 +35,7 @@ public class JwtService {
 
   private final Logger logger = LoggerFactory.getLogger(RsaKeyConfig.class);
 
- private RsaJsonWebKey rsaJsonWebKey = new RsaKeyConfig().getRsaJsonWebKey();
+  private RsaJsonWebKey rsaJsonWebKey = new RsaKeyConfig().getRsaJsonWebKey();
 
   /**
    * 生成token.

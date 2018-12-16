@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/demo")
 @Api(value = "无效接口", consumes = "application/json")
-public class DemoController  {
+public class DemoController {
   @Autowired
   private DemoService demoService;
   @Autowired

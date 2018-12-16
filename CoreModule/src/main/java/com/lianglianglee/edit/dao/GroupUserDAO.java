@@ -26,8 +26,9 @@ public interface GroupUserDAO {
 
   List<GroupUserEntity> getByUserIdAndGroupId(@Param("userId") Long userId,
                                               @Param("groupId") Long groupId);
+
   List<GroupUserEntity> getByUserId(@Param("userId") Long userId);
 
-  int  removeByUserIdAndGroupId(@Param("userId") Long userId,
+  int removeByUserIdAndGroupId(@Param("userId") Long userId,
                                @Param("groupId") Long groupId);
 }

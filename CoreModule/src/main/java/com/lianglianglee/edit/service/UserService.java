@@ -57,12 +57,12 @@ public class UserService {
   }
 
   public LoginDto reload(String token) {
-    EditJwtModel model=jwtService.getAuthenticatedUser(token);
-    if(model==null){
+    EditJwtModel model = jwtService.getAuthenticatedUser(token);
+    if (model == null) {
       throw new ServiceException("登录失败");
     }
     LoginDto dto = new LoginDto();
-    UserEntity user=userDAO.selectById(model.getId());
+    UserEntity user = userDAO.selectById(model.getId());
     if (user == null) {
       throw new AuthorizationException("登录失败!");
     }

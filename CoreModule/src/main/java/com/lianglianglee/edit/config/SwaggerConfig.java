@@ -38,22 +38,22 @@ public class SwaggerConfig {
     watch.start();
     List<Parameter> pars = new ArrayList<Parameter>();
     pars.add(new ParameterBuilder()
-            .name("Authorization").description("Authorization")
-            .modelRef(new ModelRef("string")).parameterType("header")
-            .required(true).build());
+      .name("Authorization").description("Authorization")
+      .modelRef(new ModelRef("string")).parameterType("header")
+      .required(true).build());
     Docket swaggerSpringMvcPlugin = new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo())
-            .genericModelSubstitutes(ResponseEntity.class).select()
-            .paths(regex(DEFAULT_INCLUDE_PATTERN)) // and by paths
-            .build().globalOperationParameters(pars);
+      .genericModelSubstitutes(ResponseEntity.class).select()
+      .paths(regex(DEFAULT_INCLUDE_PATTERN)) // and by paths
+      .build().globalOperationParameters(pars);
     watch.stop();
     return swaggerSpringMvcPlugin;
   }
 
   private ApiInfo apiInfo() {
     return new ApiInfoBuilder().title("云笔记API")
-            .description("一群逗逼朋友")
-            .termsOfServiceUrl("")
-            .version("1.0").build();
+      .description("一群逗逼朋友")
+      .termsOfServiceUrl("")
+      .version("1.0").build();
 
 
   }

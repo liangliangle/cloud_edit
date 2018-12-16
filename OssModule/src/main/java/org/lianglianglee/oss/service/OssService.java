@@ -29,11 +29,11 @@ public class OssService {
 
     // 创建OSSClient实例
     OSSClient ossClient = new OSSClient(OssConstConfig.getEndpoint(),
-            OssConstConfig.getAccessKeyId(),
-            OssConstConfig.getAccessKeySecret());
+      OssConstConfig.getAccessKeyId(),
+      OssConstConfig.getAccessKeySecret());
     String key = UUID.randomUUID().toString() + "." + getSuffix(file);
     PutObjectRequest request = new PutObjectRequest(OssConstConfig.getBucketName(),
-            key, file);
+      key, file);
     ossClient.putObject(request);
     // 关闭client
     ossClient.shutdown();
@@ -48,7 +48,7 @@ public class OssService {
    */
   private String getUrl(String key) {
     return "http://" + OssConstConfig.getBucketName() + "." + OssConstConfig.getEndpoint()
-            + "/" + key;
+      + "/" + key;
   }
 
   /**

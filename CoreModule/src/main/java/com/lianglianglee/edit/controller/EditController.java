@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/edit")
 @Api(value = "无效接口", consumes = "application/json")
-public class EditController  {
+public class EditController {
   @Autowired
   private EditService editService;
 
@@ -64,9 +64,10 @@ public class EditController  {
     //todo 分享笔记
     return null;
   }
-@GetMapping("group/{id}")
-@ApiOperation("按照小组获取笔记列表")
-  public List<EditDto> getByGroup(@PathVariable Long id){
+
+  @GetMapping("group/{id}")
+  @ApiOperation("按照小组获取笔记列表")
+  public List<EditDto> getByGroup(@PathVariable Long id) {
     return editService.getByGroup(id);
   }
 

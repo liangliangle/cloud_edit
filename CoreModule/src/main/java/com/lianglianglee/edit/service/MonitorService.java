@@ -13,7 +13,7 @@ import java.lang.management.ManagementFactory;
  * @Version 1.0
  */
 @Service
-public class MonitorService  {
+public class MonitorService {
   //可以设置长些，防止读到运行此次系统检查时的cpu占用率，就不准了
   private static final int CPUTIME = 5000;
 
@@ -40,7 +40,7 @@ public class MonitorService  {
     long maxMemory = Runtime.getRuntime().maxMemory() / kb / kb;
 
     OperatingSystemMXBean osmxb = (OperatingSystemMXBean) ManagementFactory
-            .getOperatingSystemMXBean();
+      .getOperatingSystemMXBean();
 
     // 操作系统
     String osName = System.getProperty("os.name");
@@ -50,13 +50,13 @@ public class MonitorService  {
     long freePhysicalMemorySize = osmxb.getFreePhysicalMemorySize() / kb / kb;
     // 已使用的物理内存
     long usedMemory = (osmxb.getTotalPhysicalMemorySize() - osmxb
-            .getFreePhysicalMemorySize())
-            / kb / kb;
+      .getFreePhysicalMemorySize())
+      / kb / kb;
 
     // 获得线程总数
     ThreadGroup parentThread;
     for (parentThread = Thread.currentThread().getThreadGroup(); parentThread
-            .getParent() != null; parentThread = parentThread.getParent())
+      .getParent() != null; parentThread = parentThread.getParent())
       ;
     int totalThread = parentThread.activeCount();
 

@@ -45,14 +45,14 @@ public class RsaKeyConfig {
   }
 
   private RSAPublicKey getPublicKey(byte[] keyBytes)
-          throws NoSuchAlgorithmException, InvalidKeySpecException {
+    throws NoSuchAlgorithmException, InvalidKeySpecException {
     X509EncodedKeySpec keySpec = new X509EncodedKeySpec(keyBytes);
     KeyFactory keyFactory = KeyFactory.getInstance("RSA");
     return (RSAPublicKey) keyFactory.generatePublic(keySpec);
   }
 
   private RSAPrivateKey getPrivateKey(byte[] keyBytes)
-          throws NoSuchAlgorithmException, InvalidKeySpecException {
+    throws NoSuchAlgorithmException, InvalidKeySpecException {
     PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(keyBytes);
     KeyFactory keyFactory = KeyFactory.getInstance("RSA");
     PrivateKey privateKey = keyFactory.generatePrivate(keySpec);

@@ -48,7 +48,7 @@ public class Qrcode {
    * @throws IOException IO异常
    */
   private static ByteArrayOutputStream writeToStream(BitMatrix matrix)
-          throws IOException {
+    throws IOException {
     BufferedImage image = toBufferedImage(matrix);
     ByteArrayOutputStream stream = new ByteArrayOutputStream();
     ImageIO.write(image, "jpg", stream);
@@ -62,7 +62,7 @@ public class Qrcode {
       Map hints = new HashMap();
       hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
       BitMatrix bitMatrix = multiFormatWriter.encode(content, BarcodeFormat.QR_CODE, 400,
-              400, hints);
+        400, hints);
       ByteArrayOutputStream byteArrayOutputStream = Qrcode.writeToStream(bitMatrix);
       return Base64.getEncoder().encodeToString(byteArrayOutputStream.toByteArray());
 

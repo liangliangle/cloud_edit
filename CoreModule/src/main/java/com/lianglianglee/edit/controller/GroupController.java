@@ -19,7 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/group")
 @Api(value = "小组相关接口", consumes = "application/json")
-public class GroupController  {
+public class GroupController {
   @Autowired
   private GroupService groupService;
 
