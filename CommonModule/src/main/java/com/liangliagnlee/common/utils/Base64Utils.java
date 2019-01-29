@@ -25,7 +25,7 @@ public class Base64Utils {
   /**
    * 二进制数据编码为BASE64字符串.
    */
-  public static String encode(byte[] bytes) throws Exception {
+  public static String encode(byte[] bytes) {
     return new String(new Base64().encode(bytes));
   }
 

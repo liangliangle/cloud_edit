@@ -1,7 +1,7 @@
 package com.liangliagnlee.common.utils;
 
-import org.springframework.util.StringUtils;
-import sun.misc.BASE64Encoder;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -18,15 +18,12 @@ public class EditUtils {
 
   private static DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-
   /**
    * MD5 encode.
    */
-  public static String encoderByMd5(String str)
-    throws NoSuchAlgorithmException, UnsupportedEncodingException {
+  public static String encoderByMd5(String str) throws NoSuchAlgorithmException, UnsupportedEncodingException {
     MessageDigest md5 = MessageDigest.getInstance("MD5");
-    BASE64Encoder base64en = new BASE64Encoder();
-    return base64en.encode(md5.digest(str.getBytes("utf-8")));
+    return Base64Utils.encode(md5.digest(str.getBytes("utf-8")));
   }
 
   public static Timestamp getCurrentTimestamp() {
