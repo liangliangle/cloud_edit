@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
-@ComponentScan(basePackages = {"com.lianglianglee.common", "com.lianglianglee.edit"})
+@ComponentScan(basePackages = {"com.lianglianglee"})
 @MapperScan("com.lianglianglee.edit.dao")
 public class TestApplication {
 

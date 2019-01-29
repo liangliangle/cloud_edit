@@ -3,6 +3,8 @@ package com.lianglianglee.edit.dto.result.base;
 import com.liangliagnlee.common.dto.BaseDto;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.util.List;
+
 /**
  * u_group
  *
@@ -22,6 +24,8 @@ public class GroupDto extends BaseDto {
   @ApiModelProperty("小组状态")
   private Integer status;
 
+
+  private List<GroupUserDto> users;
 
   public String getName() {
     return name;
@@ -53,5 +57,13 @@ public class GroupDto extends BaseDto {
 
   public void setStatus(Integer status) {
     this.status = status;
+  }
+
+  public List<GroupUserDto> getUsers() {
+    return users;
+  }
+
+  public void setUsers(List<GroupUserDto> users) {
+    this.users = users;
   }
 }

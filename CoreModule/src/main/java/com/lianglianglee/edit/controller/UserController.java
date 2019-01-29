@@ -70,4 +70,11 @@ public class UserController {
   }
 
 
+  @GetMapping("find")
+  @ApiOperation("按照邮箱或手机号查询用户")
+  public UserDto getByMailOrPhone(@RequestParam String mailOrPhone) {
+    return userService.getByMailOrPhone(mailOrPhone);
+  }
+
+
 }

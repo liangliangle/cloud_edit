@@ -63,7 +63,7 @@ public class GroupService {
 
 
   public void delete(Long id) {
-    GroupEntity entity = groupDAO.selectById(id);
+    GroupEntity entity = findById(id);
     checkRole(entity, true);
     groupDAO.deleteById(id);
   }
@@ -72,8 +72,15 @@ public class GroupService {
   public GroupDto getById(Long id) {
     GroupEntity entity = groupDAO.selectById(id);
     checkRole(entity, false);
-    // todu 用户List<GroupUserEntity> userEntities = groupUserDAO.getByGroupId(id);
-    return BeanUtils.entityToDto(entity, GroupDto.class);
+    List<GroupUserEntity> userEntities = groupUserDAO.getByGroupId(id);
+    List<GroupUserDto> userDtos = new ArrayList<>(userEntities.size());
+    userEntities.forEach(user -> {
+      userDtos.add(BeanUtils.entityToDto(user, GroupUserDto.class));
+    });
+
+    GroupDto dto = BeanUtils.entityToDto(entity, GroupDto.class);
+    dto.setUsers(userDtos);
+    return dto;
 
   }
 
@@ -91,26 +98,26 @@ public class GroupService {
 
 
   @Transactional(rollbackFor = ServiceException.class)
-  public void conveyGroup(Long id, Long userId) {
-    GroupEntity entity = groupDAO.selectById(id);
+  public void conveyGroup(Long id, Long adminUser, Long userId) {
+    GroupEntity entity = findById(id);
     if (GroupTypeEnum.PRIVATE.getType().equals(entity.getType())) {
       throw new ServiceException("私有小组无法转让");
     }
     checkRole(entity, true);
-    List<GroupUserEntity> oldAdmin = groupUserDAO.getByUserIdAndGroupId(id, entity.getUserId());
+    List<GroupUserEntity> oldAdmin = groupUserDAO.getByUserIdAndGroupId(id, adminUser);
     for (GroupUserEntity user : oldAdmin) {
-      if (user.getStatus().equals(1)) {
+      if (GroupUserTypeEnum.ADMIN.equals(user.getType()) && user.getStatus() == 1) {
         user.setType(GroupUserTypeEnum.MEMBER.getType());
         user.buildDefaultLastTime();
         groupUserDAO.updateById(user);
-      }
-    }
-    List<GroupUserEntity> newAdmin = groupUserDAO.getByUserIdAndGroupId(id, userId);
-    for (GroupUserEntity user : newAdmin) {
-      if (user.getStatus().equals(1)) {
-        user.setType(GroupUserTypeEnum.ADMIN.getType());
-        user.buildDefaultLastTime();
-        groupUserDAO.updateById(user);
+        List<GroupUserEntity> newAdmin = groupUserDAO.getByUserIdAndGroupId(id, userId);
+        for (GroupUserEntity newAminUser : newAdmin) {
+          if (newAminUser.getStatus().equals(1)) {
+            user.setType(GroupUserTypeEnum.ADMIN.getType());
+            user.buildDefaultLastTime();
+            groupUserDAO.updateById(user);
+          }
+        }
       }
     }
     entity.setUserId(userId);
@@ -120,7 +127,7 @@ public class GroupService {
 
 
   public void addUserByGroup(GroupUserCreateDto dto) {
-    GroupEntity group = groupDAO.selectById(dto.getGroupId());
+    GroupEntity group = findById(dto.getGroupId());
     checkRole(group, true);
     List<GroupUserEntity> userEntities = groupUserDAO.getByUserIdAndGroupId(dto.getUserId(), dto
       .getGroupId());
@@ -153,6 +160,7 @@ public class GroupService {
     if (update && entity.getName().equals("默认笔记")) {
       throw new ServiceException("默认笔记不允许操作");
     }
+
   }
 
   public List<GroupUserDto> getUsers(Long id) {
@@ -164,8 +172,14 @@ public class GroupService {
     return dtos;
   }
 
-  public void removeUser(Long id, Long userId) {
-    groupUserDAO.removeByUserIdAndGroupId(userId, id);
+  public void removeUser(Long id, Long adminUser, Long userId) {
+    List<GroupUserEntity> userEntities = groupUserDAO.getByUserIdAndGroupId(adminUser, id);
+    userEntities.forEach(user -> {
+      if (GroupUserTypeEnum.ADMIN.equals(user.getType()) && user.getStatus() == 1) {
+        groupUserDAO.removeByUserIdAndGroupId(userId, id);
+
+      }
+    });
   }
 
   public void submitToGroup(Long id, Boolean status) {
@@ -177,6 +191,16 @@ public class GroupService {
     }
     entity.buildDefaultLastTime();
     groupUserDAO.updateById(entity);
+  }
+
+  public GroupEntity findById(Long id) {
+    GroupEntity group = groupDAO.selectById(id);
+    if (null == group) {
+      throw new ServiceException("未知小组");
+    }
+    return group;
+
+
   }
 
 }

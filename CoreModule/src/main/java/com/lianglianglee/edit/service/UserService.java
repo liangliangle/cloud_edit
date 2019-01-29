@@ -167,4 +167,12 @@ public class UserService {
     UserEntity entity = userDAO.selectById(id);
     return BeanUtils.entityToDto(entity, UserDto.class);
   }
+
+  public UserDto getByMailOrPhone(String mailOrPhone) {
+    UserEntity user = userDAO.selectByUser(mailOrPhone);
+    if (null == user) {
+      throw new ServiceException("未知用户");
+    }
+    return BeanUtils.entityToDto(user, UserDto.class);
+  }
 }

@@ -67,13 +67,15 @@ public class GroupController {
   @PutMapping("convey/{id}")
   @ApiOperation("转让小组")
   public void conveyGroup(@PathVariable("id") Long id, @RequestParam("userId") Long userId) {
-    groupService.conveyGroup(id, userId);
+    Long adminUser = HttpContext.getContext().getUserId();
+    groupService.conveyGroup(id, adminUser, userId);
   }
 
   @DeleteMapping("/{id}/user/{userId}")
-  @ApiOperation("转让小组")
-  public void removeUser(@PathVariable("id") Long id, @PathVariable("userId") Long userId) {
-    groupService.removeUser(id, userId);
+  @ApiOperation("删除小组成员")
+  public void removeUser(@PathVariable("id") Long id, @RequestParam("userId") Long userId) {
+    Long adminUser = HttpContext.getContext().getUserId();
+    groupService.removeUser(id, adminUser, userId);
   }
 
   @PostMapping("user")
