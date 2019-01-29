@@ -5,19 +5,20 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class EditCreateDto {
 
-  @Validation(notNull = true)
+  @Validation(notNull = true, value = "标题")
   private String title;
   /**
    * 小组ID
    */
-  @Validation(notNull = true)
+  @Validation(notNull = true, value = "小组")
   @ApiModelProperty("小组ID")
   private Long groupId;
 
   /**
    * 父ID
    */
-  @Validation(notNull = true)
+
+  @Validation(notNull = true, value = "父页面")
   @ApiModelProperty("父页面ID")
   private Long parentId;
   //@Validation(notNull = true)

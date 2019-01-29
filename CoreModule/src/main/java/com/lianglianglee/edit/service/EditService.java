@@ -50,6 +50,7 @@ public class EditService {
     entity.setUserName(userName);
     entity.buildDefaultTimeStamp();
     editDAO.insert(entity);
+    dto.setContent(dto.getTitle());
     insert(entity.getId(), dto.getContent());
 
   }
