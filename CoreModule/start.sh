@@ -1,1 +1,1 @@
-nohup java -jar cloud-edit-1.0.jar &
+nohup java -jar cloud-edit/cloud-edit-1.0.jar &
