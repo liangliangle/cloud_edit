@@ -7,6 +7,8 @@ package com.liangliagnlee.common.exception;
 public class AuthorizationException extends BaseException {
 
 
+  private static final long serialVersionUID = -1304579239632297478L;
+
   public AuthorizationException() {
   }
 

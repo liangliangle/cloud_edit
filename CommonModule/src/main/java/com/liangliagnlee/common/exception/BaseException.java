@@ -8,6 +8,8 @@ package com.liangliagnlee.common.exception;
 public class BaseException extends RuntimeException {
 
 
+  private static final long serialVersionUID = 1940929783197028448L;
+
   public BaseException() {
   }
 

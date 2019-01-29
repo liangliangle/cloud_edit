@@ -1,13 +1,16 @@
 package com.liangliagnlee.common.service;
 
 
-import com.liangliagnlee.common.exception.AuthorizationException;
-import com.liangliagnlee.common.model.EditJwtModel;
-import com.liangliagnlee.common.config.RsaKeyConfig;
+import java.io.IOException;
+
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.liangliagnlee.common.config.RsaKeyConfig;
+import com.liangliagnlee.common.exception.AuthorizationException;
+import com.liangliagnlee.common.model.EditJwtModel;
+
 import org.jose4j.jwk.RsaJsonWebKey;
 import org.jose4j.jws.AlgorithmIdentifiers;
 import org.jose4j.jws.JsonWebSignature;
@@ -18,11 +21,6 @@ import org.jose4j.jwt.consumer.JwtConsumerBuilder;
 import org.jose4j.lang.JoseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-
-import java.io.IOException;
 
 /**
  * @author 李亮亮

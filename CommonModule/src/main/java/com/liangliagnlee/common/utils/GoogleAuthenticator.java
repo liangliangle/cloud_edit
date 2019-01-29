@@ -61,7 +61,7 @@ public class GoogleAuthenticator {
 
 
   public static String getUrl(String secret, String name) {
-    // TODO 笔记名称
+    //TODO  笔记名称
     return GoogleAuthenticator.getQRBarcodeURL(name,
       "云笔记", secret);
   }

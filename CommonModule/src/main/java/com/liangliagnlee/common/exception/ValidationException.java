@@ -5,6 +5,8 @@ package com.liangliagnlee.common.exception;
  */
 public class ValidationException extends BaseException {
 
+  private static final long serialVersionUID = -997461078221661733L;
+
   public ValidationException() {
   }
 

@@ -1,5 +1,7 @@
 package com.lianglianglee.edit.service;
 
+import java.util.List;
+
 import com.liangliagnlee.common.dto.PageDto;
 import com.liangliagnlee.common.exception.ServiceException;
 import com.liangliagnlee.common.interceptor.HttpContext;
@@ -15,13 +17,12 @@ import com.lianglianglee.edit.entity.EditEntity;
 import com.lianglianglee.edit.entity.EditInfoEntity;
 import com.lianglianglee.edit.entity.EditLogEntity;
 import com.lianglianglee.edit.enums.LogTypeEnum;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 public class EditService {
@@ -58,7 +59,7 @@ public class EditService {
   @Transactional(rollbackFor = ServiceException.class)
   public void updateEdit(EditCreateDto dto, Long id) {
     Long userId = HttpContext.getContext().getUserId();
-    String userName = HttpContext.getContext().getUserName();
+    //todo String userName = HttpContext.getContext().getUserName();
     logger.info("update:userId:{},parentId:{}", userId, dto.getParentId());
     EditEntity entity = editDAO.selectById(id);
     //todo  请注意小组成员也可以修改

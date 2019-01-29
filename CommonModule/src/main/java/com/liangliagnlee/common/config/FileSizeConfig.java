@@ -1,10 +1,9 @@
 package com.liangliagnlee.common.config;
 
-import org.springframework.boot.web.servlet.MultipartConfigFactory;
+import javax.servlet.MultipartConfigElement;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.servlet.MultipartConfigElement;
 
 @Configuration
 public class FileSizeConfig {

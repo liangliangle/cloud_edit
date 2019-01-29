@@ -5,6 +5,8 @@ package com.liangliagnlee.common.exception;
  */
 public class NotFoundException extends BaseException {
 
+  private static final long serialVersionUID = -2917296303778681156L;
+
   public NotFoundException() {
   }
 

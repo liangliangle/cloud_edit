@@ -1,10 +1,14 @@
 package com.lianglianglee.edit.service;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+
 import com.liangliagnlee.common.exception.AuthorizationException;
 import com.liangliagnlee.common.exception.ServiceException;
 import com.liangliagnlee.common.model.EditJwtModel;
 import com.liangliagnlee.common.service.JwtService;
 import com.liangliagnlee.common.utils.BeanUtils;
+import com.liangliagnlee.common.utils.EditUtils;
 import com.liangliagnlee.common.utils.GoogleAuthenticator;
 import com.lianglianglee.edit.dao.UserDAO;
 import com.lianglianglee.edit.dto.create.GroupCreateDto;
@@ -15,14 +19,10 @@ import com.lianglianglee.edit.dto.update.UserPasswordDto;
 import com.lianglianglee.edit.entity.UserEntity;
 import com.lianglianglee.edit.enums.GroupTypeEnum;
 import com.lianglianglee.edit.utils.Qrcode;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sun.misc.BASE64Encoder;
-
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 /**
  * @author liangliang
@@ -35,7 +35,6 @@ public class UserService {
   @Autowired
   private GroupService groupService;
   private JwtService jwtService = new JwtService();
-
 
   public LoginDto login(String userName, String password) {
     LoginDto dto = new LoginDto();
@@ -79,7 +78,6 @@ public class UserService {
     return dto;
   }
 
-
   public void update(UserDto userDto) {
     UserEntity oldEntity = userDAO.selectById(userDto.getId());
     oldEntity.buildDefaultLastTime();
@@ -88,7 +86,6 @@ public class UserService {
     oldEntity.setPhone(userDto.getPhone());
     userDAO.updateById(oldEntity);
   }
-
 
   public void updatePassword(UserPasswordDto dto) {
     UserEntity entity = userDAO.selectById(dto.getId());
@@ -103,7 +100,6 @@ public class UserService {
     userDAO.updateById(entity);
   }
 
-
   public String getCodeImg(Long userId) {
     UserEntity entity = userDAO.selectById(userId);
     if (null == entity.getSecret()) {
@@ -115,9 +111,8 @@ public class UserService {
     entity.buildDefaultLastTime();
     userDAO.updateById(entity);
     String url = GoogleAuthenticator.getUrl(entity.getSecret(), entity.getName());
-    return Qrcode.getCodeString(entity.getSecret());
+    return Qrcode.getCodeString(url);
   }
-
 
   @Transactional(rollbackFor = ServiceException.class)
   public void insert(UserCreateDto dto) {
@@ -137,14 +132,10 @@ public class UserService {
     groupService.insert(groupCreateDto);
   }
 
-
   private String md5(String s) {
     try {
-      MessageDigest md5 = MessageDigest.getInstance("MD5");
-      BASE64Encoder base64en = new BASE64Encoder();
-      //加密后的字符串
-      return base64en.encode(md5.digest(s.getBytes("utf-8")));
-
+      String md5 = EditUtils.encoderByMd5(s);
+      return String.valueOf(md5);
     } catch (NoSuchAlgorithmException e) {
       e.printStackTrace();
       throw new ServiceException("修改密码失败");
@@ -161,7 +152,6 @@ public class UserService {
     return jwtService.generateToken(model, 360000000);
   }
 
-
   public void checkCode(Long userId, String code) {
     UserEntity userEntity = userDAO.selectById(userId);
     if (null == userEntity.getSecret()) {
@@ -172,7 +162,6 @@ public class UserService {
       throw new ServiceException("验证失败，请重试");
     }
   }
-
 
   public UserDto getById(Long id) {
     UserEntity entity = userDAO.selectById(id);

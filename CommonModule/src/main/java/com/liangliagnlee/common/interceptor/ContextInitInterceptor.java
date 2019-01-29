@@ -1,16 +1,16 @@
 package com.liangliagnlee.common.interceptor;
 
-import com.liangliagnlee.common.exception.AuthorizationException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.liangliagnlee.common.model.EditJwtModel;
 import com.liangliagnlee.common.service.JwtService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * 将从传来的值，存储在线程上下文中。供service, controller调用.

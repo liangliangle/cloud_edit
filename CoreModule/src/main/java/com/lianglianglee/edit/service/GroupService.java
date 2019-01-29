@@ -1,5 +1,9 @@
 package com.lianglianglee.edit.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.liangliagnlee.common.exception.ServiceException;
 import com.liangliagnlee.common.interceptor.HttpContext;
 import com.liangliagnlee.common.utils.BeanUtils;
@@ -14,13 +18,10 @@ import com.lianglianglee.edit.entity.GroupEntity;
 import com.lianglianglee.edit.entity.GroupUserEntity;
 import com.lianglianglee.edit.enums.GroupTypeEnum;
 import com.lianglianglee.edit.enums.GroupUserTypeEnum;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class GroupService {
@@ -71,7 +72,7 @@ public class GroupService {
   public GroupDto getById(Long id) {
     GroupEntity entity = groupDAO.selectById(id);
     checkRole(entity, false);
-    List<GroupUserEntity> userEntities = groupUserDAO.getByGroupId(id);
+    // todu 用户List<GroupUserEntity> userEntities = groupUserDAO.getByGroupId(id);
     return BeanUtils.entityToDto(entity, GroupDto.class);
 
   }

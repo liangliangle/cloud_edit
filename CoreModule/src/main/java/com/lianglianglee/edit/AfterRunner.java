@@ -1,7 +1,5 @@
 package com.lianglianglee.edit;
 
-import org.lianglianglee.oss.OssConstConfig;
-import org.lianglianglee.oss.entity.OssConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

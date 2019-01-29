@@ -41,7 +41,7 @@ public class RsaKeyConfig {
   }
 
   private byte[] readByteArrayFromBase64String(String input) {
-    return new Base64().decode(input);
+    return Base64.decode(input);
   }
 
   private RSAPublicKey getPublicKey(byte[] keyBytes)

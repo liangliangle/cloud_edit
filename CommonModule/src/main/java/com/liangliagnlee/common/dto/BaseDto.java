@@ -2,7 +2,6 @@ package com.liangliagnlee.common.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 
-@SuppressWarnings("serial")
 public class BaseDto {
   @ApiModelProperty("主键 id")
   private Long id;

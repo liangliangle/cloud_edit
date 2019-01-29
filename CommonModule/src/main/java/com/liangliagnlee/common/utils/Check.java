@@ -15,7 +15,7 @@ public class Check {
     if (null == o) {
       return;
     }
-    Class clazz = o.getClass();
+    Class<?> clazz = o.getClass();
     List<Field> fieldList = new ArrayList<Field>();
     while (clazz != null) {
       fieldList.addAll(new ArrayList<>(Arrays.asList(clazz.getDeclaredFields())));
@@ -39,11 +39,6 @@ public class Check {
       }
     });
   }
-
-  private static double objectToDubule(Object o) {
-    return Double.valueOf(o.toString());
-  }
-
 
   private static void checkNotNull(Object value, Validation validation) {
     if (validation.notNull() && value == null) {

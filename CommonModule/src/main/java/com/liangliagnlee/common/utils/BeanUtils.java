@@ -61,7 +61,7 @@ public class BeanUtils {
   }
 
   private static Field[] getAllFields(Object object) {
-    Class clazz = object.getClass();
+    Class<?> clazz = object.getClass();
     List<Field> fieldList = new ArrayList<Field>();
     while (clazz != null) {
       fieldList.addAll(new ArrayList<Field>(Arrays.asList(clazz.getDeclaredFields())));

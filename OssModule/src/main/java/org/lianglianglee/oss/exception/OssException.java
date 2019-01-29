@@ -8,6 +8,8 @@ package org.lianglianglee.oss.exception;
  */
 public class OssException extends RuntimeException {
 
+  private static final long serialVersionUID = 2451378532336067318L;
+
   public OssException() {
     super();
   }

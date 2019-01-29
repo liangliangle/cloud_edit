@@ -19,7 +19,7 @@ public class Base64Utils {
    * BASE64字符串解码为二进制数据.
    */
   public static byte[] decode(String base64) throws Exception {
-    return new Base64().decodeBase64(base64);
+    return  Base64.decodeBase64(base64);
   }
 
   /**

@@ -59,7 +59,7 @@ public class Qrcode {
   public static String getCodeString(String content) {
     try {
       MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
-      Map hints = new HashMap();
+      Map<EncodeHintType,String> hints = new HashMap<EncodeHintType,String>();
       hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
       BitMatrix bitMatrix = multiFormatWriter.encode(content, BarcodeFormat.QR_CODE, 400,
         400, hints);

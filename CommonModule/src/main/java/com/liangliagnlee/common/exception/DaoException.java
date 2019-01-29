@@ -7,6 +7,8 @@ package com.liangliagnlee.common.exception;
  */
 public class DaoException extends BaseException {
 
+  private static final long serialVersionUID = 1478343415179965905L;
+
   public DaoException() {
   }
 
