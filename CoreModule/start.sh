@@ -1,0 +1,1 @@
+nohup java -jar kpi-backend-1.0.0.jar &
