@@ -31,7 +31,7 @@ import java.security.SecureRandom;
 
 public class GoogleAuthenticator {
 
-  // taken from Google pam docs - we probably don't need to mess with these
+  // taken from Google pam docs - we probably don't need to mess with theseFileController
   private static final int SECRET_SIZE = 10;
 
   private static final String SEED = "g8GjEvTbW5oVSV7avLBdwIHqGlUYNzKFI7izOF8GwLDVKs2m0QN7vxRs2im5MDaNCWGmcD2rvcZx";
@@ -62,8 +62,8 @@ public class GoogleAuthenticator {
 
   public static String getUrl(String secret, String name) {
     //TODO  笔记名称
-    return GoogleAuthenticator.getQRBarcodeURL(name,
-      "云笔记", secret);
+    return GoogleAuthenticator.getQRBarcodeURL("云笔记",
+      name, secret);
   }
 
   public static String generateSecretKey() {

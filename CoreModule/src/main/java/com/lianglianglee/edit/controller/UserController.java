@@ -1,5 +1,6 @@
 package com.lianglianglee.edit.controller;
 
+import com.liangliagnlee.common.interceptor.HttpContext;
 import com.lianglianglee.edit.dto.create.UserCreateDto;
 import com.lianglianglee.edit.dto.result.base.LoginDto;
 import com.lianglianglee.edit.dto.result.base.UserDto;
@@ -57,15 +58,17 @@ public class UserController {
     userService.update(dto);
   }
 
-  @GetMapping("code/{id}")
+  @GetMapping("code")
   @ApiOperation("二次验证二维码")
-  public String getCode(@PathVariable("id") Long id) {
-    return userService.getCodeImg(id);
+  public String getCode() {
+    Long userId = HttpContext.getContext().getUserId();
+    return userService.getCodeImg(userId);
   }
 
   @PostMapping("code/{id}")
   @ApiOperation("验证code")
-  public void checkCode(@PathVariable("id") Long userId, @RequestParam String code) {
+  public void checkCode(@RequestParam String code) {
+    Long userId = HttpContext.getContext().getUserId();
     userService.checkCode(userId, code);
   }
 

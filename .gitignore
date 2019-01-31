@@ -5,6 +5,7 @@
 
 .settings/
 */.classpath
+/upload
 
 .project
 

@@ -4,10 +4,13 @@ import org.lianglianglee.oss.service.OssService;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.MultipartConfigElement;
 
 @SpringBootApplication
 @RestController
@@ -26,7 +29,13 @@ public class CoreApplication {
     SpringApplication.run(CoreApplication.class, args);
   }
 
-
+/*
+  @Bean
+  public MultipartConfigElement multipartConfigElement() {
+    MultipartConfigFactory factory = new MultipartConfigFactory();
+    factory.setLocation("/data/tmp");
+    return factory.createMultipartConfig();
+  }*/
   @Bean
   public OssService ossService() {
     return new OssService();

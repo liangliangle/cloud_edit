@@ -43,6 +43,9 @@ public class ContextInitInterceptor implements HandlerInterceptor {
     if ("post".equals(request.getMethod().toLowerCase()) && requestUri.equals("/api/user")) {
       return true;
     }
+    if (requestUri.startsWith("/upload")) {
+      return true;
+    }
     try {
       String token = request.getHeader("authorization");
       EditJwtModel model = jwtAuthenticationService.customizedValidation(token);
