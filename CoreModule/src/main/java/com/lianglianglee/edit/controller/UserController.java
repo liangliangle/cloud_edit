@@ -46,6 +46,14 @@ public class UserController {
     }
   }
 
+
+  @GetMapping("")
+  @ApiOperation("登陆")
+  public UserDto getById() {
+    Long userId = HttpContext.getContext().getUserId();
+    return userService.getById(userId);
+  }
+
   @PutMapping("password")
   @ApiOperation("修改密码")
   public void updatePassword(@RequestBody UserPasswordDto dto) {
@@ -78,6 +86,5 @@ public class UserController {
   public UserDto getByMailOrPhone(@RequestParam String mailOrPhone) {
     return userService.getByMailOrPhone(mailOrPhone);
   }
-
 
 }
