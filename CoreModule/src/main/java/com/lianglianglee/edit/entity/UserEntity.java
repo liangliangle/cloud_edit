@@ -41,7 +41,7 @@ public class UserEntity extends BaseEntity {
     return name;
   }
 
-  public void setName(String name) {
+  private void setName(String name) {
     this.name = name;
   }
 
@@ -49,7 +49,7 @@ public class UserEntity extends BaseEntity {
     return email;
   }
 
-  public void setEmail(String email) {
+  private void setEmail(String email) {
     this.email = email;
   }
 
@@ -57,7 +57,7 @@ public class UserEntity extends BaseEntity {
     return phone;
   }
 
-  public void setPhone(String phone) {
+  private void setPhone(String phone) {
     this.phone = phone;
   }
 
@@ -65,7 +65,7 @@ public class UserEntity extends BaseEntity {
     return password;
   }
 
-  public void setPassword(String password) {
+  private void setPassword(String password) {
     this.password = password;
   }
 
@@ -73,7 +73,7 @@ public class UserEntity extends BaseEntity {
     return secret;
   }
 
-  public void setSecret(String secret) {
+  private void setSecret(String secret) {
     this.secret = secret;
   }
 
@@ -81,7 +81,47 @@ public class UserEntity extends BaseEntity {
     return status;
   }
 
-  public void setStatus(Integer status) {
+  private void setStatus(Integer status) {
     this.status = status;
+  }
+
+  public void change(String name, String email, String phone, String password, String secret, Integer status) {
+    if (getId() == null) {
+      buildDefaultTimeStamp();
+    }
+    setEmail(email);
+    setName(name);
+    setPassword(password);
+    setPhone(phone);
+    setSecret(secret);
+    setStatus(status);
+    buildDefaultLastTime();
+  }
+
+  public void change(String name, String email, String phone) {
+    if (getId() == null) {
+      buildDefaultTimeStamp();
+    }
+    setEmail(email);
+    setName(name);
+    setPhone(phone);
+    buildDefaultLastTime();
+  }
+
+  public void changePassword(String password) {
+    if (getId() == null) {
+      buildDefaultTimeStamp();
+    }
+    setPassword(password);
+    buildDefaultLastTime();
+  }
+
+
+  public void changeSecret(String secret) {
+    if (getId() == null) {
+      buildDefaultTimeStamp();
+    }
+    setSecret(secret);
+    buildDefaultLastTime();
   }
 }

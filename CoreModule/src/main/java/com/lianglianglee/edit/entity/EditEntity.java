@@ -35,7 +35,7 @@ public class EditEntity extends BaseEntity {
     return title;
   }
 
-  public void setTitle(String title) {
+  private void setTitle(String title) {
     this.title = title;
   }
 
@@ -49,7 +49,7 @@ public class EditEntity extends BaseEntity {
     return userId;
   }
 
-  public void setUserId(Long userId) {
+  private void setUserId(Long userId) {
     this.userId = userId;
   }
 
@@ -57,7 +57,7 @@ public class EditEntity extends BaseEntity {
     return groupId;
   }
 
-  public void setGroupId(Long groupId) {
+  private void setGroupId(Long groupId) {
     this.groupId = groupId;
   }
 
@@ -65,7 +65,7 @@ public class EditEntity extends BaseEntity {
     return userName;
   }
 
-  public void setUserName(String userName) {
+  private void setUserName(String userName) {
     this.userName = userName;
   }
 
@@ -73,7 +73,7 @@ public class EditEntity extends BaseEntity {
     return parentId;
   }
 
-  public void setParentId(Long parentId) {
+  private void setParentId(Long parentId) {
     this.parentId = parentId;
   }
 
@@ -81,7 +81,30 @@ public class EditEntity extends BaseEntity {
     return status;
   }
 
-  public void setStatus(Integer status) {
+  private void setStatus(Integer status) {
     this.status = status;
+  }
+
+  public void change(String title, Long userId, Long groupId, String userName, Long parentId, Integer status) {
+    if (getId() == null) {
+      buildDefaultTimeStamp();
+    }
+    setGroupId(groupId);
+    setParentId(parentId);
+    setStatus(status);
+    setTitle(title);
+    setUserId(userId);
+    setUserName(userName);
+    buildDefaultLastTime();
+  }
+
+  public void change(String title, Long groupId, Long parentId) {
+    if (getId() == null) {
+      buildDefaultTimeStamp();
+    }
+    setGroupId(groupId);
+    setParentId(parentId);
+    setTitle(title);
+    buildDefaultLastTime();
   }
 }

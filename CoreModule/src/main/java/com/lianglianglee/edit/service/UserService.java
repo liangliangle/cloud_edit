@@ -37,12 +37,17 @@ public class UserService {
   private JwtService jwtService = new JwtService();
 
   public LoginDto login(String userName, String password) {
-    LoginDto dto = new LoginDto();
+
     UserEntity user = userDAO.selectByUser(userName);
     if (user == null || !user.getPassword().equals(md5(password))) {
       throw new AuthorizationException("用户名或密码错误!");
     }
-    user.setPassword(null);
+    return buildLoginDto(user);
+  }
+
+  private LoginDto buildLoginDto(UserEntity user) {
+
+    LoginDto dto = new LoginDto();
     UserDto userDto = BeanUtils.entityToDto(user, UserDto.class);
     if (null == user.getSecret()) {
       userDto.setAuth(false);
@@ -65,25 +70,12 @@ public class UserService {
     if (user == null) {
       throw new AuthorizationException("登录失败!");
     }
-    user.setPassword(null);
-    UserDto userDto = BeanUtils.entityToDto(user, UserDto.class);
-    if (null == user.getSecret()) {
-      userDto.setAuth(false);
-    } else {
-      userDto.setAuth(true);
-    }
-    dto.setUserDto(userDto);
-    dto.setTocken(getTocken(userDto));
-    dto.setGroups(groupService.getByUser(user.getId()));
-    return dto;
+    return buildLoginDto(user);
   }
 
   public void update(UserDto userDto) {
     UserEntity oldEntity = userDAO.selectById(userDto.getId());
-    oldEntity.buildDefaultLastTime();
-    oldEntity.setEmail(userDto.getEmail());
-    oldEntity.setName(userDto.getName());
-    oldEntity.setPhone(userDto.getPhone());
+    oldEntity.change(userDto.getName(), userDto.getEmail(), userDto.getPhone());
     userDAO.updateById(oldEntity);
   }
 
@@ -95,8 +87,7 @@ public class UserService {
     if (!entity.getPassword().equals(md5(dto.getOldPassword()))) {
       throw new ServiceException("请校对旧密码!");
     }
-    entity.setPassword(md5(dto.getNewPassword()));
-    entity.buildDefaultLastTime();
+    entity.changePassword(md5(dto.getNewPassword()));
     userDAO.updateById(entity);
   }
 
@@ -104,7 +95,7 @@ public class UserService {
     UserEntity entity = userDAO.selectById(userId);
     if (null == entity.getSecret()) {
       String secret = GoogleAuthenticator.generateSecretKey();
-      entity.setSecret(secret);
+      entity.changeSecret(secret);
     } else {
       throw new ServiceException("您已使用过二次验证！");
     }
@@ -119,10 +110,9 @@ public class UserService {
     if (userDAO.countByPhoneOrEmail(dto.getEmail(), dto.getPhone()) > 0) {
       throw new ServiceException("手机号或邮箱已占用!");
     }
-    UserEntity entity = BeanUtils.dtoToEntity(dto, UserEntity.class);
-    entity.setStatus(1);
-    entity.setPassword(md5(dto.getPassword()));
-    entity.buildDefaultTimeStamp();
+    UserEntity entity = new UserEntity();
+    entity.change(dto.getName(), dto.getEmail(), dto.getPhone(), null, null, 1);
+    entity.changePassword(md5(dto.getPassword()));
     userDAO.insert(entity);
     GroupCreateDto groupCreateDto = new GroupCreateDto();
     groupCreateDto.setName("默认笔记");
@@ -134,8 +124,7 @@ public class UserService {
 
   private String md5(String s) {
     try {
-      String md5 = EditUtils.encoderByMd5(s);
-      return String.valueOf(md5);
+      return EditUtils.encoderByMd5(s);
     } catch (NoSuchAlgorithmException e) {
       e.printStackTrace();
       throw new ServiceException("修改密码失败");

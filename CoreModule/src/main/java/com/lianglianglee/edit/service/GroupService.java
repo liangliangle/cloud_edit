@@ -36,27 +36,20 @@ public class GroupService {
 
   @Transactional(rollbackFor = ServiceException.class)
   public void insert(GroupCreateDto dto) {
-    GroupEntity groupEntity = BeanUtils.dtoToEntity(dto, GroupEntity.class);
-    groupEntity.buildDefaultTimeStamp();
-    groupEntity.setStatus(1);
-    groupDAO.insert(groupEntity);
-    GroupUserEntity entity = new GroupUserEntity();
-    entity.setGroupId(groupEntity.getId());
-    entity.setUserId(dto.getUserId());
-    entity.setType(GroupUserTypeEnum.ADMIN.getType());
-    entity.setStatus(1);
-    entity.setUserName(dto.getUserName());
-    entity.buildDefaultTimeStamp();
-    groupUserDAO.insert(entity);
+    GroupEntity entity = new GroupEntity();
+    entity.change(dto.getName(), dto.getType(), dto.getUserId(), 1);
+    groupDAO.insert(entity);
+    GroupUserEntity userEntity = new GroupUserEntity();
+    userEntity.change(dto.getUserId(), entity.getId(), GroupUserTypeEnum.ADMIN, dto.getUserName(), 1);
+    groupUserDAO.insert(userEntity);
   }
 
 
   public void update(GroupCreateDto dto, Long id) {
     GroupEntity entity = groupDAO.selectById(id);
     checkRole(entity, true);
-    entity.buildDefaultLastTime();
-    entity.setName(dto.getName());
-    entity.setType(dto.getType());
+    entity.change(dto.getName(), dto.getType(), 1);
+
     //todo 私有相关逻辑
     groupDAO.updateById(entity);
   }
@@ -107,20 +100,18 @@ public class GroupService {
     List<GroupUserEntity> oldAdmin = groupUserDAO.getByUserIdAndGroupId(id, adminUser);
     for (GroupUserEntity user : oldAdmin) {
       if (GroupUserTypeEnum.ADMIN.equals(user.getType()) && user.getStatus() == 1) {
-        user.setType(GroupUserTypeEnum.MEMBER.getType());
-        user.buildDefaultLastTime();
+        user.changeType(GroupUserTypeEnum.MEMBER);
         groupUserDAO.updateById(user);
         List<GroupUserEntity> newAdmin = groupUserDAO.getByUserIdAndGroupId(id, userId);
         for (GroupUserEntity newAminUser : newAdmin) {
           if (newAminUser.getStatus().equals(1)) {
-            user.setType(GroupUserTypeEnum.ADMIN.getType());
-            user.buildDefaultLastTime();
+            user.changeType(GroupUserTypeEnum.ADMIN);
             groupUserDAO.updateById(user);
           }
         }
       }
     }
-    entity.setUserId(userId);
+    entity.chageUserId(userId);
     entity.buildDefaultLastTime();
     groupDAO.updateById(entity);
   }
@@ -137,15 +128,12 @@ public class GroupService {
       }
     }
     GroupUserEntity userEntity = new GroupUserEntity();
-    userEntity.setType(GroupUserTypeEnum.MEMBER.getType());
-    userEntity.setGroupId(dto.getGroupId());
-    userEntity.setStatus(1);
-    userEntity.setUserId(dto.getUserId());
+
     UserDto user = userService.getById(dto.getUserId());
     if (null == user) {
       throw new ServiceException("用户不存在");
     }
-    userEntity.setUserName(user.getName());
+    userEntity.change(dto.getUserId(), dto.getGroupId(), GroupUserTypeEnum.MEMBER, user.getName(), 1);
     groupUserDAO.insert(userEntity);
   }
 
@@ -180,17 +168,6 @@ public class GroupService {
 
       }
     });
-  }
-
-  public void submitToGroup(Long id, Boolean status) {
-    GroupUserEntity entity = groupUserDAO.selectById(id);
-    if (status) {
-      entity.setStatus(1);
-    } else {
-      entity.setStatus(0);
-    }
-    entity.buildDefaultLastTime();
-    groupUserDAO.updateById(entity);
   }
 
   public GroupEntity findById(Long id) {

@@ -25,7 +25,7 @@ public class GroupEntity extends BaseEntity {
     return name;
   }
 
-  public void setName(String name) {
+  private void setName(String name) {
     this.name = name;
   }
 
@@ -33,7 +33,7 @@ public class GroupEntity extends BaseEntity {
     return type;
   }
 
-  public void setType(String type) {
+  private void setType(String type) {
     this.type = type;
   }
 
@@ -41,7 +41,7 @@ public class GroupEntity extends BaseEntity {
     return userId;
   }
 
-  public void setUserId(Long userId) {
+  private void setUserId(Long userId) {
     this.userId = userId;
   }
 
@@ -49,7 +49,32 @@ public class GroupEntity extends BaseEntity {
     return status;
   }
 
-  public void setStatus(Integer status) {
+  private void setStatus(Integer status) {
     this.status = status;
+  }
+
+  public void change(String name, String type, Long userId, Integer status) {
+    if (getId() == null) {
+      buildDefaultTimeStamp();
+    }
+    setName(name);
+    setStatus(status);
+    setType(type);
+    setUserId(userId);
+    buildDefaultLastTime();
+  }
+
+  public void change(String name, String type, int status) {
+    if (getId() == null) {
+      buildDefaultTimeStamp();
+    }
+    setName(name);
+    setStatus(status);
+    setType(type);
+    buildDefaultLastTime();
+  }
+
+  public void chageUserId(Long userId) {
+    setUserId(userId);
   }
 }

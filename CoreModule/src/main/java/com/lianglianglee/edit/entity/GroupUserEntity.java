@@ -1,6 +1,7 @@
 package com.lianglianglee.edit.entity;
 
 import com.liangliagnlee.common.entity.BaseEntity;
+import com.lianglianglee.edit.enums.GroupUserTypeEnum;
 
 /**
  * u_group_user liangliang
@@ -37,7 +38,7 @@ public class GroupUserEntity extends BaseEntity {
     return userId;
   }
 
-  public void setUserId(Long userId) {
+  private void setUserId(Long userId) {
     this.userId = userId;
   }
 
@@ -45,7 +46,7 @@ public class GroupUserEntity extends BaseEntity {
     return groupId;
   }
 
-  public void setGroupId(Long groupId) {
+  private void setGroupId(Long groupId) {
     this.groupId = groupId;
   }
 
@@ -53,7 +54,7 @@ public class GroupUserEntity extends BaseEntity {
     return type;
   }
 
-  public void setType(String type) {
+  private void setType(String type) {
     this.type = type;
   }
 
@@ -61,7 +62,7 @@ public class GroupUserEntity extends BaseEntity {
     return status;
   }
 
-  public void setStatus(Integer status) {
+  private void setStatus(Integer status) {
     this.status = status;
   }
 
@@ -69,7 +70,24 @@ public class GroupUserEntity extends BaseEntity {
     return userName;
   }
 
-  public void setUserName(String userName) {
+  private void setUserName(String userName) {
     this.userName = userName;
   }
+
+  public void change(Long userId, Long groupId, GroupUserTypeEnum type, String userName, Integer status) {
+    if (getId() == null) {
+      buildDefaultTimeStamp();
+    }
+    setGroupId(groupId);
+    setStatus(status);
+    setType(type.getType());
+    setUserId(userId);
+    setUserName(userName);
+    buildDefaultLastTime();
+  }
+
+  public void changeType(GroupUserTypeEnum type) {
+    setType(type.getType());
+  }
+
 }

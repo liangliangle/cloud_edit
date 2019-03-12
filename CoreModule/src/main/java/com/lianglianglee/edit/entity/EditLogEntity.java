@@ -28,7 +28,7 @@ public class EditLogEntity extends BaseEntity {
     return infoId;
   }
 
-  public void setInfoId(Long infoId) {
+  private void setInfoId(Long infoId) {
     this.infoId = infoId;
   }
 
@@ -36,7 +36,7 @@ public class EditLogEntity extends BaseEntity {
     return editId;
   }
 
-  public void setEditId(Long editId) {
+  private void setEditId(Long editId) {
     this.editId = editId;
   }
 
@@ -44,7 +44,7 @@ public class EditLogEntity extends BaseEntity {
     return type;
   }
 
-  public void setType(String type) {
+  private void setType(String type) {
     this.type = type;
   }
 
@@ -52,7 +52,18 @@ public class EditLogEntity extends BaseEntity {
     return status;
   }
 
-  public void setStatus(Integer status) {
+  private void setStatus(Integer status) {
     this.status = status;
+  }
+
+  public void change(Long infoId, Long editId, String type, Integer status) {
+    if (getId() == null) {
+      buildDefaultTimeStamp();
+    }
+    setEditId(editId);
+    setInfoId(infoId);
+    setStatus(status);
+    setType(type);
+    buildDefaultLastTime();
   }
 }

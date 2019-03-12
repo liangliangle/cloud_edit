@@ -26,7 +26,7 @@ public class BaseEntity {
     return createTime;
   }
 
-  public void setCreateTime(Date createTime) {
+  private void setCreateTime(Date createTime) {
     this.createTime = createTime;
   }
 
@@ -34,7 +34,7 @@ public class BaseEntity {
     return lastUpdateTime;
   }
 
-  public void setLastUpdateTime(Date lastUpdateTime) {
+  private void setLastUpdateTime(Date lastUpdateTime) {
     this.lastUpdateTime = lastUpdateTime;
   }
 

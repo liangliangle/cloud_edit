@@ -29,7 +29,7 @@ public class FileEntity extends BaseEntity {
     return editId;
   }
 
-  public void setEditId(Long editId) {
+  private void setEditId(Long editId) {
     this.editId = editId;
   }
 
@@ -37,7 +37,7 @@ public class FileEntity extends BaseEntity {
     return fileName;
   }
 
-  public void setFileName(String fileName) {
+  private void setFileName(String fileName) {
     this.fileName = fileName;
   }
 
@@ -45,7 +45,7 @@ public class FileEntity extends BaseEntity {
     return url;
   }
 
-  public void setUrl(String url) {
+  private void setUrl(String url) {
     this.url = url;
   }
 
@@ -53,7 +53,18 @@ public class FileEntity extends BaseEntity {
     return status;
   }
 
-  public void setStatus(String status) {
+  private void setStatus(String status) {
     this.status = status;
+  }
+
+  public void change(Long editId, String fileName, String url, String status) {
+    if (getId() == null) {
+      buildDefaultTimeStamp();
+    }
+    setEditId(editId);
+    setFileName(fileName);
+    setStatus(status);
+    setUrl(url);
+    buildDefaultLastTime();
   }
 }

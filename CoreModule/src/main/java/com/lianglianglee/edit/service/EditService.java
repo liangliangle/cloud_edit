@@ -43,13 +43,7 @@ public class EditService {
     String userName = HttpContext.getContext().getUserName();
     logger.info("insert:userId:{},parentId:{},content:{}", userId, dto.getParentId(), dto.getContent());
     EditEntity entity = new EditEntity();
-    entity.setGroupId(dto.getGroupId());
-    entity.setParentId(dto.getParentId());
-    entity.setTitle(dto.getTitle());
-    entity.setStatus(1);
-    entity.setUserId(userId);
-    entity.setUserName(userName);
-    entity.buildDefaultTimeStamp();
+    entity.change(dto.getTitle(), userId, dto.getGroupId(), userName, dto.getParentId(), 1);
     editDAO.insert(entity);
     dto.setContent(dto.getTitle());
     insert(entity.getId(), dto.getContent());
@@ -66,9 +60,7 @@ public class EditService {
     if (!entity.getUserId().equals(userId)) {
       throw new ServiceException("未找到笔记");
     }
-    entity.setTitle(dto.getTitle());
-    entity.setParentId(dto.getParentId());
-    entity.buildDefaultLastTime();
+    entity.change(dto.getTitle(), dto.getGroupId(), dto.getParentId());
     editDAO.updateById(entity);
     EditInfoEntity infoEntity = infoDAO.getByEditId(id);
     if (infoEntity.getInfo() == null || !infoEntity.getInfo().equals(dto.getContent())) {
@@ -117,11 +109,7 @@ public class EditService {
     infoDAO.deleteByEditId(editId);
     LogTypeEnum type = LogTypeEnum.CREATE;
     EditInfoEntity infoEntity = new EditInfoEntity();
-    infoEntity.setEditId(editId);
-    infoEntity.setInfo(content);
-    infoEntity.setStatus(1);
-    infoEntity.setType(1);
-    infoEntity.buildDefaultTimeStamp();
+    infoEntity.change(editId, 1, 1, content);
     infoDAO.insert(infoEntity);
     Long infoId = infoEntity.getId();
     if (null != oldInfo) {
@@ -134,11 +122,7 @@ public class EditService {
   private void saveLog(Long editId, LogTypeEnum type, Long infoId) {
     logger.info("type:{},editId:{},infoId:{}", type, editId, infoId);
     EditLogEntity logEntity = new EditLogEntity();
-    logEntity.setInfoId(infoId);
-    logEntity.setEditId(editId);
-    logEntity.setType(type.getType());
-    logEntity.setStatus(1);
-    logEntity.buildDefaultTimeStamp();
+    logEntity.change(infoId, editId, type.getType(), 1);
     logDAO.insert(logEntity);
   }
 
